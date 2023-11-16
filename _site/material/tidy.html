@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>OGH2023 - Tidy geographic data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.0/leaflet.js"></script>
+<script src="../site_libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0/leaflet-providers-plugin.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">OGH2023</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_lovelace.html" rel="" target="">
+ <span class="menu-text">R Spatial</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Sentinel.html" rel="" target="">
+ <span class="menu-text">Sentinel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../clustering_spatial_r.html" rel="" target="">
+ <span class="menu-text">Clustering</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../julia.html" rel="" target="">
+ <span class="menu-text">Julia</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../spatial_ml.html" rel="" target="">
+ <span class="menu-text">Spatial ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../openeo.html" rel="" target="">
+ <span class="menu-text">openEO</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../env_time_series.html" rel="" target="">
+ <span class="menu-text">Environmental time series</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../panel_discussion.html" rel="" target="">
+ <span class="menu-text">Panel discussion</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../xcube.html" rel="" target="">
+ <span class="menu-text">xcube</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../python_toolchain.html" rel="" target="">
+ <span class="menu-text">Python IML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../moving_pandas.html" rel="" target="">
+ <span class="menu-text">MovingPandas</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sharing.html" rel="" target="">
+ <span class="menu-text">Sharing knowledge</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning objectives</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">1.2</span> Prerequisites</a></li>
+  </ul></li>
+  <li><a href="#an-introduction-to-geographic-data-in-the-tidyverse" id="toc-an-introduction-to-geographic-data-in-the-tidyverse" class="nav-link" data-scroll-target="#an-introduction-to-geographic-data-in-the-tidyverse"><span class="header-section-number">2</span> An introduction to geographic data in the tidyverse</a>
+  <ul class="collapse">
+  <li><a href="#reading-and-writing-geographic-data" id="toc-reading-and-writing-geographic-data" class="nav-link" data-scroll-target="#reading-and-writing-geographic-data"><span class="header-section-number">2.1</span> Reading and writing geographic data</a>
+  <ul class="collapse">
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.1.1</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#attribute-operations-with-dplyr" id="toc-attribute-operations-with-dplyr" class="nav-link" data-scroll-target="#attribute-operations-with-dplyr"><span class="header-section-number">2.2</span> Attribute operations with dplyr</a>
+  <ul class="collapse">
+  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="header-section-number">2.2.1</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#making-maps-with-ggplot2" id="toc-making-maps-with-ggplot2" class="nav-link" data-scroll-target="#making-maps-with-ggplot2"><span class="header-section-number">2.3</span> Making maps with ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2"><span class="header-section-number">2.3.1</span> Exercises</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-from-osm-and-data-frames" id="toc-data-from-osm-and-data-frames" class="nav-link" data-scroll-target="#data-from-osm-and-data-frames"><span class="header-section-number">3</span> Data from OSM and data frames</a>
+  <ul class="collapse">
+  <li><a href="#loading-a-gpx-file" id="toc-loading-a-gpx-file" class="nav-link" data-scroll-target="#loading-a-gpx-file"><span class="header-section-number">3.1</span> Loading a GPX file</a></li>
+  <li><a href="#exercises-3" id="toc-exercises-3" class="nav-link" data-scroll-target="#exercises-3"><span class="header-section-number">3.2</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#tidyverse-geos" id="toc-tidyverse-geos" class="nav-link" data-scroll-target="#tidyverse-geos"><span class="header-section-number">4</span> <code>tidyverse</code> + <code>geos</code></a>
+  <ul class="collapse">
+  <li><a href="#finding-suitable-coordinate-reference-systems" id="toc-finding-suitable-coordinate-reference-systems" class="nav-link" data-scroll-target="#finding-suitable-coordinate-reference-systems"><span class="header-section-number">4.1</span> Finding suitable coordinate reference systems</a></li>
+  <li><a href="#exercises-4" id="toc-exercises-4" class="nav-link" data-scroll-target="#exercises-4"><span class="header-section-number">4.2</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#worked-example-data-from-poznan" id="toc-worked-example-data-from-poznan" class="nav-link" data-scroll-target="#worked-example-data-from-poznan"><span class="header-section-number">5</span> Worked example: data from Poznan</a>
+  <ul class="collapse">
+  <li><a href="#getting-and-reading-in-the-data" id="toc-getting-and-reading-in-the-data" class="nav-link" data-scroll-target="#getting-and-reading-in-the-data"><span class="header-section-number">5.1</span> Getting and reading-in the data</a></li>
+  <li><a href="#vector-data" id="toc-vector-data" class="nav-link" data-scroll-target="#vector-data"><span class="header-section-number">5.2</span> Vector data</a>
+  <ul class="collapse">
+  <li><a href="#buffers" id="toc-buffers" class="nav-link" data-scroll-target="#buffers"><span class="header-section-number">5.2.1</span> Buffers</a></li>
+  <li><a href="#spatial-subsetting" id="toc-spatial-subsetting" class="nav-link" data-scroll-target="#spatial-subsetting"><span class="header-section-number">5.2.2</span> Spatial subsetting</a></li>
+  <li><a href="#spatial-joins" id="toc-spatial-joins" class="nav-link" data-scroll-target="#spatial-joins"><span class="header-section-number">5.2.3</span> Spatial joins</a></li>
+  <li><a href="#exercises-5" id="toc-exercises-5" class="nav-link" data-scroll-target="#exercises-5"><span class="header-section-number">5.2.4</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#raster-data-example" id="toc-raster-data-example" class="nav-link" data-scroll-target="#raster-data-example"><span class="header-section-number">5.3</span> Raster data example</a>
+  <ul class="collapse">
+  <li><a href="#masking-and-cropping" id="toc-masking-and-cropping" class="nav-link" data-scroll-target="#masking-and-cropping"><span class="header-section-number">5.3.1</span> Masking and cropping</a></li>
+  <li><a href="#exercises-6" id="toc-exercises-6" class="nav-link" data-scroll-target="#exercises-6"><span class="header-section-number">5.3.2</span> Exercises</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#other-tidy-packages" id="toc-other-tidy-packages" class="nav-link" data-scroll-target="#other-tidy-packages"><span class="header-section-number">6</span> Other tidy packages</a>
+  <ul class="collapse">
+  <li><a href="#tidypolars" id="toc-tidypolars" class="nav-link" data-scroll-target="#tidypolars"><span class="header-section-number">6.1</span> <code>tidypolars</code></a></li>
+  <li><a href="#rsgeo" id="toc-rsgeo" class="nav-link" data-scroll-target="#rsgeo"><span class="header-section-number">6.2</span> <code>rsgeo</code></a></li>
+  <li><a href="#arrow" id="toc-arrow" class="nav-link" data-scroll-target="#arrow"><span class="header-section-number">6.3</span> Arrow</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7</span> Further reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tidy geographic data</h1>
+<p class="subtitle lead">with sf, dplyr, ggplot2, geos and friends</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>These materials were created for the OpenGeoHub Summer School 2023.</p>
+<p>They can be used with reference to the accompanying slides, available at <a href="https://ogh23.robinlovelace.net/tidy-slides.html">ogh23.robinlovelace.net/opengeohub2023</a>.</p>
+<p>See the <a href="https://github.com/robinlovelace/opengeohub2023">parent repo</a> and <a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/7JN3FV/">session description in the agenda</a> for context.</p>
+<section id="abstract" class="level1 unnumbered">
+<h1 class="unnumbered">Abstract</h1>
+<p>This lecture will provide an introduction to working with geographic data using R in a ‘tidy’ way. It will focus on using the <code>sf</code> package to read, write, manipulate, and plot geographic data in combination with the <code>tidyverse</code> metapackage. Why use the <code>sf</code> package with the <code>tidyverse</code>? The lecture will outline some of the ideas underlying the <code>tidyverse</code> and how they can speed-up data analysis pipelines, while making data analysis code easier to read and write. We will see how the following lines:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>can provide a foundation on which the many geographic data analysis problems can be solved. The lecture will also cover on more recently developed packages that integrate with the <code>tidyverse</code> to a greater and lesser extent. We will look at how the <code>geos</code> package, which provides a simple and high-performance interface to the GEOS library for performing geometric operations on geographic data, integrates with the <code>tidyverse</code>. The <code>tidyverse</code> is not the right tool for every data analysis task and we touch on alternatives for working with raster data, with reference to the <code>terra</code> package, and alternative frameworks such as <code>data.table</code>. Finally, we will also look at how the ‘tidy’ philosophy could be implemented in other programming languages, such as Python.</p>
+<p>The focus throughout will be on practical skills and using packages effectively within the wider context of project management tools, integrated development environments (we recommend VS Code with appropriate extensions or RStudio), and version control systems.</p>
+</section>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning objectives</h2>
+<p>By the end of the session, participants will be able to:</p>
+<ul>
+<li>Read, write, manipulate, and plot geographic data using the <code>sf</code> package</li>
+<li>Use the <code>tidyverse</code> metapackage to speed-up the writing of geographic data analysis pipelines</li>
+<li>Use the <code>geos</code> package to perform geometric operations on geographic data</li>
+<li>Understand the strengths and weaknesses of the <code>tidyverse</code> for geographic data analysis</li>
+</ul>
+</section>
+<section id="prerequisites" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.2</span> Prerequisites</h2>
+<p>We recommend you run the code in the practical session with a modern integrated development environment (IDE) such as</p>
+<ul>
+<li>RStudio: an IDE focussed on data science and software development with R. See <a href="https://posit.co/download/rstudio-desktop/">posit.co</a> for installation instructions.</li>
+<li>VS Code: a general purpose, popular and future-proof IDE with support for R. See <a href="https://github.com/REditorSupport/vscode-R#getting-started">github.com/REditorSupport/vscode-R</a> and <a href="https://quarto.org/docs/get-started/">quarto.org</a> for installation instructions.</li>
+</ul>
+<p>After you have installed a suitable IDE you will need to install R packages used in this tutorial. You can install the packages we’ll use with the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install remotes if not already installed</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"remotes"</span>)) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># The packages we'll use</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sf"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tidyverse"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"geos"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggspatial"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"spData"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_cran</span>(pkgs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After running the above commands, you should be able to load the packages with the following command (we will load the packages individually in subsequent sections):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="an-introduction-to-geographic-data-in-the-tidyverse" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> An introduction to geographic data in the tidyverse</h1>
+<p>The <code>tidyverse</code> is a collection of packages that provides a unified set of functions for data science. The name ‘tidyverse’ is a reference to the ‘tidy data’ concept, which means simple data that is in the form of one observation per row and one variable per column <span class="citation" data-cites="wickham2014">(<a href="#ref-wickham2014" role="doc-biblioref">Wickham 2014</a>)</span>. The meaning has broadened to refer to a way of doing data analysis, that tends to make heavy use of tidyverse packages. Load the <code>tidyverse</code> with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>As shown in the output, the package loads 9 sub-packages. In this tutorial we will focus on</p>
+<ul>
+<li><code>dplyr</code>, which provides convenient functions for manipulating data frames</li>
+<li><code>ggplot2</code>, which provides a powerful and flexible system for creating plots</li>
+</ul>
+<p>A good way to understand it is to get started with a small dataset. So let’s load the <code>sf</code> package and the <code>spData</code> package, which contains the <code>world</code> dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'sf' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.11.2, GDAL 3.7.2, PROJ 9.3.0; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'spData' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>To access larger datasets in this package, install the spDataLarge
+package with: `install.packages('spDataLarge',
+repos='https://nowosad.github.io/drat/', type='source')`</code></pre>
+</div>
+</div>
+<p>After loading the packages run the following commands to create an object called countries, containing countries whose centroids are within 200km of the Polish border:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(world) <span class="co"># check we have the data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "iso_a2"    "name_long" "continent" "region_un" "subregion" "type"     
+ [7] "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>poland <span class="ot">=</span> world <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name_long <span class="sc">==</span> <span class="st">"Poland"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>world_centroids <span class="ot">=</span> world <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_centroid</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>country_centroids <span class="ot">=</span> world_centroids <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_filter</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    poland,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.predicate =</span> st_is_within_distance,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist =</span> <span class="fl">2e5</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">=</span> world <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name_long <span class="sc">%in%</span> country_centroids<span class="sc">$</span>name_long)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>countries_df <span class="ot">=</span> countries <span class="sc">|&gt;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name_long, pop, area_km2) <span class="sc">|&gt;</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Don’t worry about the syntax for now. The important thing is that we now have a data frame with three columns, representing the name, population and area of four countries. We can print out the contents of the data frame by typing its name (this is equivalent to <code>print(countries_df)</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>countries_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  name_long           pop area_km2
+* &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;
+1 Poland         38011735  310402.
+2 Lithuania       2932367   63831.
+3 Slovakia        5418649   47068.
+4 Czech Republic 10525347   81208.</code></pre>
+</div>
+</div>
+<p>The output above shows information about each country in a tabular. A feature of the tidyverse is that its default data frame class (the <code>tibble</code> which extends base R’s <code>data.frame</code> as shown below) prints results in an informative and space-efficient way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(countries_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+</div>
+<p><code>ggplot2</code> is dedicated plotting package that is loaded when you load the <code>tidyverse</code>. It has native support for geographic objects, as shown in <a href="#fig-plotting-basics">Figure&nbsp;1</a>, which shows the output of <code>plot(countries)</code> next to the equivalent <code>ggplot2</code> code.</p>
+<div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot
+all</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>countries <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-plotting-basics" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plotting-basics-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-plotting-basics-1.png" class="img-fluid figure-img" data-ref-parent="fig-plotting-basics" width="672"></p>
+<figcaption class="figure-caption">(a) Base R</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plotting-basics-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-plotting-basics-2.png" class="img-fluid figure-img" data-ref-parent="fig-plotting-basics" width="672"></p>
+<figcaption class="figure-caption">(b) ggplot2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Plotting geographic data with base R (left) and ggplot2 (right)</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>A characteristic feature of the tidyverse is the use of the pipe operator. You can use R’s new native pipe operator (<code>|&gt;</code>), first available in R 4.1.0, or the magrittr pipe operator (<code>%&gt;%</code>).</p>
+<p>The pipes chain together functions, making it easier to read and write code. It can be particularly useful when used in combination with RStudio’s intellisense feature, which provides suggestions for column names as you type. Try typing the following in RStudio and hitting Tab with the curso located between the brackets on the final line to see this in action. It will allow you to select the variable you’re interested in without quote marks, using a feature called non-standard evaluation (NSE) <span class="citation" data-cites="wickham2019">(<a href="#ref-wickham2019" role="doc-biblioref">Wickham 2019</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>countries_df <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="reading-and-writing-geographic-data" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="reading-and-writing-geographic-data"><span class="header-section-number">2.1</span> Reading and writing geographic data</h2>
+<p>You can read and write a wide range of vector geographic data with <code>sf</code>. Save the <code>countries</code> object to a file called <code>countries.geojson</code> and inspect the result.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">write_sf</span>(countries, <span class="st">"countries.geojson"</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can read the file in again with <code>read_sf()</code> (which returns a ‘tidyverse compliant’ <code>tibble</code> data frame) or <code>st_read()</code>, as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>countries_new1 <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"countries.geojson"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>countries_new2 <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="st">"countries.geojson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `countries' from data source 
+  `C:\Users\leoni\Documents\Projekte\OGH2023\material\countries.geojson' 
+  using driver `GeoJSON'
+Simple feature collection with 4 features and 10 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 12.24011 ymin: 47.75843 xmax: 26.58828 ymax: 56.37253
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
+<p>For most purposes the two representations are the same, although the ‘tibble’ version’s <code>print</code> outpout is slightly different.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>countries_new1 <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 2 features and 10 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 14.07452 ymin: 49.0274 xmax: 26.58828 ymax: 56.37253
+Geodetic CRS:  WGS 84
+# A tibble: 2 × 11
+  iso_a2 name_long continent region_un subregion   type  area_km2    pop lifeExp
+  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 PL     Poland    Europe    Europe    Eastern Eu… Sove…  310402. 3.80e7    77.6
+2 LT     Lithuania Europe    Europe    Northern E… Sove…   63831. 2.93e6    74.5
+# ℹ 2 more variables: gdpPercap &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [°]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>countries_new2 <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 2 features and 10 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 14.07452 ymin: 49.0274 xmax: 26.58828 ymax: 56.37253
+Geodetic CRS:  WGS 84
+  iso_a2 name_long continent region_un       subregion              type
+1     PL    Poland    Europe    Europe  Eastern Europe Sovereign country
+2     LT Lithuania    Europe    Europe Northern Europe Sovereign country
+   area_km2      pop  lifeExp gdpPercap                       geometry
+1 310402.33 38011735 77.60244  24347.07 MULTIPOLYGON (((23.48413 53...
+2  63831.09  2932367 74.51707  26258.21 MULTIPOLYGON (((26.49433 55...</code></pre>
+</div>
+</div>
+<p>A nice function to explore the differences between the two objects is <code>waldo::compare()</code>. It shows that, other than their classes, the two objects are identical:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>waldo<span class="sc">::</span><span class="fu">compare</span>(countries_new1, countries_new2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>`class(old)`: "sf" "tbl_df" "tbl" "data.frame"
+`class(new)`: "sf"                "data.frame"</code></pre>
+</div>
+</div>
+<p>See the full list of file formats that you can read and write with <code>sf</code> with the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>drvs <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_drivers</span>() <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(drvs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  name        long_name                    write copy  is_raster is_vector vsi  
+  &lt;chr&gt;       &lt;chr&gt;                        &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;lgl&gt;
+1 PCIDSK      PCIDSK Database File         TRUE  FALSE TRUE      TRUE      TRUE 
+2 netCDF      Network Common Data Format   TRUE  TRUE  TRUE      TRUE      FALSE
+3 PDS4        NASA Planetary Data System 4 TRUE  TRUE  TRUE      TRUE      TRUE 
+4 VICAR       MIPL VICAR file              TRUE  TRUE  TRUE      TRUE      TRUE 
+5 JP2OpenJPEG JPEG-2000 driver based on O… FALSE TRUE  TRUE      TRUE      TRUE 
+6 PDF         Geospatial PDF               TRUE  TRUE  TRUE      TRUE      TRUE </code></pre>
+</div>
+</div>
+<section id="exercises" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.1.1</span> Exercises</h3>
+<ol type="1">
+<li><p>Re-create the <code>country_centroids</code> object, using <code>world_centroids</code> and <code>poland</code> and inputs, but this time using base R syntax with the <code>[</code> operator.</p>
+<ul>
+<li>Bonus: use the <code>bench::mark()</code> function to compare the performance of the base R and tidyverse implementation</li>
+<li>Open question: Is this a good thing to benchmark? Why or why not?</li>
+</ul></li>
+</ol>
+<ol start="2" type="1">
+<li>Inspect the full list of drivers, e.g.&nbsp;with the command <code>View(drvs)</code>.
+<ul>
+<li>Which formats are you likely to use and why?</li>
+<li>Bonus: take a look at <a href="https://r.geocompx.org/read-write">Chapter 8</a> of Geocomputation with R for more on reading and writing geographic (including raster) data with R.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="attribute-operations-with-dplyr" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="attribute-operations-with-dplyr"><span class="header-section-number">2.2</span> Attribute operations with dplyr</h2>
+<p><strong>dplyr</strong> is a large package with many functions for working with data frames. The five key ‘verbs’ <a href="https://dplyr.tidyverse.org/">described</a> as:</p>
+<blockquote class="blockquote">
+<ul>
+<li><code>mutate()</code> adds new variables that are functions of existing variables</li>
+<li><code>select()</code> picks variables based on their names.</li>
+<li><code>filter()</code> picks cases based on their values.</li>
+<li><code>summarise()</code> reduces multiple values down to a single summary.</li>
+<li><code>arrange()</code> changes the ordering of the rows.</li>
+</ul>
+</blockquote>
+<p>Let’s take a brief look at each.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>countries_modified <span class="ot">=</span> countries <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_density =</span> pop <span class="sc">/</span> area_km2) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name_long, pop_density) <span class="sc">|&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pop_density <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop_density))</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>countries_modified</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 3 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 12.24011 ymin: 47.75843 xmax: 24.02999 ymax: 54.85154
+Geodetic CRS:  WGS 84
+# A tibble: 3 × 3
+  name_long      pop_density                                                geom
+  &lt;chr&gt;                &lt;dbl&gt;                                  &lt;MULTIPOLYGON [°]&gt;
+1 Czech Republic        130. (((15.017 51.10667, 14.57072 51.00234, 14.30701 51…
+2 Poland                122. (((23.48413 53.9125, 23.24399 54.22057, 22.7311 54…
+3 Slovakia              115. (((22.55814 49.08574, 21.60781 49.47011, 20.88796 …</code></pre>
+</div>
+</div>
+<p>The <code>summarise()</code> function is often used in combination with <code>group_by()</code>, e.g.&nbsp;as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>countries_summarised <span class="ot">=</span> countries <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">contains_a =</span> <span class="fu">str_detect</span>(name_long, <span class="st">"a"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_pop =</span> <span class="fu">mean</span>(pop))</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>countries_summarised</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 2 features and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 12.24011 ymin: 47.75843 xmax: 26.58828 ymax: 56.37253
+Geodetic CRS:  WGS 84
+# A tibble: 2 × 4
+  contains_a     n  mean_pop                                                geom
+  &lt;lgl&gt;      &lt;int&gt;     &lt;dbl&gt;                                       &lt;POLYGON [°]&gt;
+1 FALSE          1 10525347  ((15.017 51.10667, 14.57072 51.00234, 14.30701 51.…
+2 TRUE           3 15454250. ((26.49433 55.61511, 25.53305 56.1003, 25.00093 56…</code></pre>
+</div>
+</div>
+<p>The operation creates a new variable called <code>contains_a</code> that is <code>TRUE</code> if the country name contains an “a” and <code>FALSE</code> otherwise. Perhaps more impressively, it also automatically updated the geometry column of the combined countries containing the letter “a”, highlighting <code>dplyr</code>’s ability to work with geographic data represented as <code>sf</code> objects.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>countries_summarised <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> contains_a)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> countries, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">linetype =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-summarise" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-summarise-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Result of running dplyr group_by() and summarise() functions on countries data</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="exercises-1" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="exercises-1"><span class="header-section-number">2.2.1</span> Exercises</h3>
+<ol type="1">
+<li>Create a new data frame called <code>countries_modified2</code> that contains the name, population and area of countries with a population density of more than 100 people per km2, sorted by area in descending order.</li>
+<li>Do the same with base R functions and the <code>[</code> operator.
+<ul>
+<li>What are the pros and cons of each?</li>
+<li>Which do you prefer?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="making-maps-with-ggplot2" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="making-maps-with-ggplot2"><span class="header-section-number">2.3</span> Making maps with ggplot2</h2>
+<p>As shown above, <code>geom_sf()</code> works ‘out of the box’ with geographic data. We can modify plotting commands to control outputs as showing in <a href="#fig-geom-sf-fill">Figure&nbsp;3</a> and generate publishable maps.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggspatial' was built under R version 4.3.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>countries <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="st">"grey80"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> countries_modified, <span class="fu">aes</span>(<span class="at">fill =</span> pop_density)) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-geom-sf-fill" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-geom-sf-fill-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Map created with ggplot2, with fill color controlled by the pop_density variable and multiple layers.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Map making is an iterative and time consuming process. Iterate on the code above, e.g.&nbsp;by changing the color palette, adding a title, and adding a legend.</p>
+<p>There are many add-ons to <code>ggplot2</code>. <code>ggspatial</code> can be used to add a basemap to a plot with <code>annotation_map_tile()</code>, as illustrated in <a href="#fig-annotation-map-tile">Figure&nbsp;4</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>rosm<span class="sc">::</span><span class="fu">osm.types</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "osm"                    "opencycle"              "hotstyle"              
+ [4] "loviniahike"            "loviniacycle"           "stamenbw"              
+ [7] "stamenwatercolor"       "osmtransport"           "thunderforestlandscape"
+[10] "thunderforestoutdoors"  "cartodark"              "cartolight"            </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>() <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_spatial</span>(countries_modified, <span class="fu">aes</span>(<span class="at">fill =</span> pop_density),</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-annotation-map-tile" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-annotation-map-tile-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Map created with ggplot2, with a basemap added with annotation_map_tile().</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="exercises-2" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="exercises-2"><span class="header-section-number">2.3.1</span> Exercises</h3>
+<ol type="1">
+<li>With reference to the documentation at <a href="https://ggplot2.tidyverse.org/index.html">ggplot2.tidyverse.org/index.html</a>, modify the code above to create a map with a title, legend and a different color palette.</li>
+<li>With reference to <a href="https://paleolimbot.github.io/ggspatial/">paleolimbot.github.io/ggspatial/</a>, add annotations including scale bar, north arrow and a text label to the map.</li>
+<li>Bonus: try map making with <code>tmap</code> and test out the interactive mode (set with <code>tmap_mode("interactive")</code>).”</li>
+<li>Bonus: try reproducing maps presented in <a href="https://r.geocompx.org/adv-map.html">Chapter 9</a> of Geocomputation with R with <code>ggplot2</code> and <code>ggspatial</code>. Which mapping framework do you prefer and why?</li>
+<li>If you use raster data, take a look at the <a href="https://dieghernan.github.io/tidyterra/"><code>tidyterra</code></a> documentation.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="data-from-osm-and-data-frames" class="level1 page-columns page-full" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data from OSM and data frames</h1>
+<p>We’ll start this section by creating some data ourselves, representing 4 points of interest (pois) in relation to the OpenGeoHub Summer School 2023.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>poi_df <span class="ot">=</span> <span class="fu">tribble</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>name, <span class="sc">~</span>lon, <span class="sc">~</span>lat,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Faculty"</span>,        <span class="fl">16.9418</span>, <span class="fl">52.4643</span>,</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hotel ForZa"</span>,    <span class="fl">16.9474</span>, <span class="fl">52.4436</span>,</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hotel Lechicka"</span>, <span class="fl">16.9308</span>, <span class="fl">52.4437</span>,</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FairPlayce"</span>,     <span class="fl">16.9497</span>, <span class="fl">52.4604</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>poi_sf <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(poi_df, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>))</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">st_crs</span>(poi_sf) <span class="ot">=</span> <span class="st">"EPSG:4326"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># column: screen-inset-shaded</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span>  <span class="co"># Add default OpenStreetMap map tiles</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lng =</span> poi_df<span class="sc">$</span>lon,</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> poi_df<span class="sc">$</span>lat,</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">popup =</span> poi_df<span class="sc">$</span>name</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For comparison, we can create the same map with a single line of code with <code>{tmap}</code> (after loading and setting-up the package) as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tmap' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Breaking News: tmap 3.x is retiring. Please test v4, e.g. with
+remotes::install_github('r-tmap/tmap')</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tmap mode set to interactive viewing</code></pre>
+</div>
+</div>
+<p>We will also check the version of <code>{tmap}</code> that we’re using, in anticipation of a major update (to v4, expected later in 2023).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(poi_sf) <span class="sc">+</span> <span class="fu">tm_bubbles</span>(<span class="at">popup.vars =</span> <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The interactive maps below illustrate the outputs of the preceding map-making commands, highlighting the convenience of using <code>{tmap}</code>, which requires far fewer lines of code, although <code>{leaflet}</code> and other low-level map-making packages can offer more control.</p>
+<div id="fig-interactive" class="quarto-layout-panel page-columns page-full">
+<figure class="figure page-columns page-full">
+<div class="quarto-layout-row quarto-layout-valign-top page-columns page-full">
+<div class="quarto-layout-cell page-columns page-full" style="flex-basis: 50.0%;justify-content: center;">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'leaflet' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell column-screen-inset-shaded quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-83ebff9508c9d3978580" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-83ebff9508c9d3978580">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[52.4643,52.4436,52.4437,52.4604],[16.9418,16.9474,16.9308,16.9497],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Faculty","Hotel ForZa","Hotel Lechicka","FairPlayce"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[52.4436,52.4643],"lng":[16.9308,16.9497]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0ce1dabb9ee5f0c5fce3" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-0ce1dabb9ee5f0c5fce3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.WorldGrayCanvas",null,"Esri.WorldGrayCanvas",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap",null,"OpenStreetMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Esri.WorldTopoMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addCircles","args":[[52.4643,52.4436,52.4437,52.4604],[16.9418,16.9474,16.9308,16.9497],[38.36230990623189,38.36230990623189,38.36230990623189,38.36230990623189],["Faculty","Hotel.ForZa","Hotel.Lechicka","FairPlayce"],"poi_sf",{"interactive":true,"className":"","pane":"tmap401","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":["#999999","#999999","#999999","#999999"],"fillOpacity":[1,1,1,1]},["<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>Faculty<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>name<\/nobr><\/td><td align=\"right\"><nobr>Faculty<\/nobr><\/td><\/tr><\/table><\/div>","<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>Hotel ForZa<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>name<\/nobr><\/td><td align=\"right\"><nobr>Hotel ForZa<\/nobr><\/td><\/tr><\/table><\/div>","<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>Hotel Lechicka<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>name<\/nobr><\/td><td align=\"right\"><nobr>Hotel Lechicka<\/nobr><\/td><\/tr><\/table><\/div>","<style> div.leaflet-popup-content {width:auto !important;overflow-y:auto; overflow-x:hidden;}<\/style><div style=\"max-height:25em;padding-right:0px;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>FairPlayce<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\"><nobr>name<\/nobr><\/td><td align=\"right\"><nobr>FairPlayce<\/nobr><\/td><\/tr><\/table><\/div>"],null,["Faculty","Hotel ForZa","Hotel Lechicka","FairPlayce"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLayersControl","args":[["Esri.WorldGrayCanvas","OpenStreetMap","Esri.WorldTopoMap"],"poi_sf",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":true,"position":"bottomright"}]}],"limits":{"lat":[52.4436,52.4643],"lng":[16.9308,16.9497]},"fitBounds":[52.4436,16.9308,52.4643,16.9497,[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: Interactive maps of 4 locations in Poznan made with 7 lines of code with <code>{leaflet}</code> (left), and 1 line of <code>{tmap}</code> code (right).</figcaption><p></p>
+</figure>
+</div>
+<p>Turn off the interactive mode as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tmap mode set to plotting</code></pre>
+</div>
+</div>
+<p>As a taster for the OSM workshop, let’s read-in some data from OSM. As our study area, we’ll use a 500 m buffer around the convex hull of the Faculty and FairPlayce points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>pois_buffer <span class="ot">=</span> poi_sf <span class="sc">|&gt;</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">"Fair|Faculty"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>() <span class="sc">|&gt;</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_convex_hull</span>() <span class="sc">|&gt;</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll save the output for future reference:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>pois_buffer_simple <span class="ot">=</span> pois_buffer <span class="sc">|&gt;</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">10</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pois_buffer)</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pois_buffer_simple, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidy_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">write_sf</span>(pois_buffer_simple, <span class="st">"pois_buffer_simple.geojson"</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>extra_tags <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"maxspeed"</span>, <span class="st">"foot"</span>, <span class="st">"bicycle"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">=</span> osmextract<span class="sc">::</span><span class="fu">oe_get</span>(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Poznan"</span>,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">layer =</span> <span class="st">"lines"</span>,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra_tags =</span> extra_tags,</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundary =</span> pois_buffer,</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundary_type =</span> <span class="st">"clipsrc"</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Filter out only the ones we need as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>lines_highways <span class="ot">=</span> lines <span class="sc">|&gt;</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(highway)) </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lines<span class="sc">$</span>geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidy_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(lines<span class="sc">$</span>highway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+      footway living_street          path      platform      proposed 
+           92            13            53             8            13 
+  residential       service         steps      tertiary         track 
+           76            67            17             9            10 </code></pre>
+</div>
+</div>
+<p>Let’s add some polygons to the map, representing the buildings in the area.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>polygons <span class="ot">=</span> osmextract<span class="sc">::</span><span class="fu">oe_get</span>(</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Poznan"</span>,</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">layer =</span> <span class="st">"multipolygons"</span>,</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundary =</span> pois_buffer,</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundary_type =</span> <span class="st">"clipsrc"</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>buildings <span class="ot">=</span> polygons <span class="sc">|&gt;</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(building))</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>polygons_geog <span class="ot">=</span> buildings <span class="sc">|&gt;</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">"Geog"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the results as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>m_osm <span class="ot">=</span> <span class="fu">tm_shape</span>(buildings) <span class="sc">+</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(lines_highways) <span class="sc">+</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>() <span class="sc">+</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(polygons_geog) <span class="sc">+</span></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"red"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can export the <code>lines_highways</code> object to GeoJSON as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">write_sf</span>(lines_highways, <span class="st">"data/lines_highways.geojson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="loading-a-gpx-file" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="loading-a-gpx-file"><span class="header-section-number">3.1</span> Loading a GPX file</h2>
+<p>Let’s load a GPX file representing a route from the Faculty to FairPlayce.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>u_gpx <span class="ot">=</span> <span class="st">"https://www.openstreetmap.org/trace/9741677/data"</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>f_gpx <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">basename</span>(u_gpx), <span class="st">".gpx"</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(u_gpx, f_gpx)</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">st_layers</span>(f_gpx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Driver: GPX 
+Available layers:
+    layer_name     geometry_type features fields crs_name
+1    waypoints             Point        0     23   WGS 84
+2       routes       Line String        0     12   WGS 84
+3       tracks Multi Line String        1     12   WGS 84
+4 route_points             Point        0     25   WGS 84
+5 track_points             Point     1525     26   WGS 84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>gpx <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(f_gpx, <span class="at">layer =</span> <span class="st">"track_points"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can divide the GPS points into n groups of equal length as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>gpx_mutated <span class="ot">=</span> gpx <span class="sc">|&gt;</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minute =</span> lubridate<span class="sc">::</span><span class="fu">round_date</span>(time, <span class="st">"minute"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">second =</span> lubridate<span class="sc">::</span><span class="fu">round_date</span>(time, <span class="st">"second"</span>)) </span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gpx_mutated<span class="sc">$</span>minute)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Min.                    1st Qu. 
+"2023-08-27 10:02:00.0000" "2023-08-27 10:20:00.0000" 
+                    Median                       Mean 
+"2023-08-27 10:36:00.0000" "2023-08-27 10:38:42.8065" 
+                   3rd Qu.                       Max. 
+"2023-08-27 10:59:00.0000" "2023-08-27 11:14:00.0000" </code></pre>
+</div>
+</div>
+<p>Let’s create an animated map, as illustrated in <a href="#fig-gpx">Figure&nbsp;6</a>, with the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ?tmap_animation</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>m_faceted <span class="ot">=</span> m_osm <span class="sc">+</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(gpx_mutated[pois_buffer, ]) <span class="sc">+</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">legend.show =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_facets</span>(<span class="st">"second"</span>, <span class="at">free.coords =</span> <span class="cn">FALSE</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>()</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_animation</span>(m_faceted, <span class="at">delay =</span> <span class="dv">2</span>, <span class="at">filename =</span> <span class="st">"gpx.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!---
+ ![](gpx.gif) 
+--->
+<div id="fig-gpx" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/1825120/263552520-4079b188-f921-4c6f-9391-bfd7891a4f52.gif" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Animated map of a GPX file representing a route from central Poznan to FairPlayce.</figcaption>
+</figure>
+</div>
+</section>
+<section id="exercises-3" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="exercises-3"><span class="header-section-number">3.2</span> Exercises</h2>
+<ol type="1">
+<li>Create <code>sf</code> objects representing the following features in Poznan (hint: try using functions for geocoding such as <code>stplanr::geo_code()</code> or <code>tmaptools::geocode_OSM()</code>):
+<ul>
+<li>The main train station</li>
+<li>The airport</li>
+</ul></li>
+<li>Identify interesting features in the surrounding area from OSM and plot them in static and interactive maps.</li>
+</ol>
+</section>
+</section>
+<section id="tidyverse-geos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <code>tidyverse</code> + <code>geos</code></h1>
+<p>The <a href="https://paleolimbot.github.io/geos/"><code>geos</code> package</a> provides a simple and high-performance interface to the GEOS library for performing geometric operations on geographic data. Load it as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'geos' was built under R version 4.3.2</code></pre>
+</div>
+</div>
+<p><code>geos</code> works well with the <code>tidyverse</code> and <code>sf</code> packages, as shown below.</p>
+<section id="finding-suitable-coordinate-reference-systems" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="finding-suitable-coordinate-reference-systems"><span class="header-section-number">4.1</span> Finding suitable coordinate reference systems</h2>
+<p><code>geos</code> is designed to work with projected data, so we will reproject the <code>countries</code> object to a different CRS before proceeding.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>suitable_crs <span class="ot">=</span> crsuggest<span class="sc">::</span><span class="fu">suggest_crs</span>(countries)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>suitable_crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   crs_code crs_name                        crs_type crs_gcs crs_units crs_proj4
+   &lt;chr&gt;    &lt;chr&gt;                           &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1 3328     Pulkovo 1942(58) / GUGiK-80     project…    4179 m         +proj=st…
+ 2 2180     ETRF2000-PL / CS92              project…    9702 m         +proj=tm…
+ 3 3120     Pulkovo 1942(58) / Poland zone… project…    4179 m         +proj=st…
+ 4 2173     Pulkovo 1942(58) / Poland zone… project…    4179 m         +proj=st…
+ 5 2172     Pulkovo 1942(58) / Poland zone… project…    4179 m         +proj=st…
+ 6 2177     ETRF2000-PL / CS2000/18         project…    9702 m         +proj=tm…
+ 7 2178     ETRF2000-PL / CS2000/21         project…    9702 m         +proj=tm…
+ 8 8353     S-JTSK [JTSK03] / Krovak East … project…    8351 m         +proj=kr…
+ 9 8352     S-JTSK [JTSK03] / Krovak        project…    8351 m         +proj=kr…
+10 5514     S-JTSK / Krovak East North      project…    4156 m         +proj=kr…</code></pre>
+</div>
+</div>
+<p>We’ll use the second of these, EPSG:2180, after <a href="https://github.com/Robinlovelace/opengeohub2023/issues/12">checking</a> (the package’s top suggestion is not always the most up-to-date or appropriate option).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>crs1 <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"EPSG:"</span>, suitable_crs<span class="sc">$</span>crs_code[<span class="dv">2</span>])</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>crs1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "EPSG:2180"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>countries_projected <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_transform</span>(countries, <span class="at">crs =</span> crs1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>countries_geos <span class="ot">=</span> <span class="fu">as_geos_geometry</span>(sf<span class="sc">::</span><span class="fu">st_geometry</span>(countries_projected))</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>countries_geos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;geos_geometry[4] with CRS=ETRF2000-PL / CS92&gt;
+[1] &lt;MULTIPOLYGON [169518 135742...854986 777315]&gt;
+[2] &lt;MULTIPOLYGON [628064 681310...982752 961090]&gt;
+[3] &lt;MULTIPOLYGON [343349 -11504...759703 189400]&gt;
+[4] &lt;MULTIPOLYGON [18570 83048...489369 371643]&gt;  </code></pre>
+</div>
+</div>
+<p>The package only deals with geometries: the attribute data is removed when you convert an <code>sf</code> object to a <code>geos</code> object. You can store <code>geos</code> objects in a data frame and still use <code>dplyr</code> functions to process them:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>countries_geos_df <span class="ot">=</span> <span class="fu">bind_cols</span>(countries_df, <span class="at">geos =</span> countries_geos)</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>countries_summarised_df <span class="ot">=</span> countries_geos_df <span class="sc">|&gt;</span></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">contains_a =</span> <span class="fu">str_detect</span>(name_long, <span class="st">"a"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_pop =</span> <span class="fu">mean</span>(pop))</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>countries_summarised_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  contains_a     n  mean_pop
+  &lt;lgl&gt;      &lt;int&gt;     &lt;dbl&gt;
+1 FALSE          1 10525347 
+2 TRUE           3 15454250.</code></pre>
+</div>
+</div>
+<p>Note: the <code>geos</code> column has gone! This is because <code>geos</code> columns are not ‘sticky’ like <code>sf</code> columns. Let’s see how to get them back.</p>
+<div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>countries_union1 <span class="ot">=</span> countries_geos <span class="sc">|&gt;</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geos_unary_union</span>()</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries_union1)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>countries_union2 <span class="ot">=</span> countries_geos <span class="sc">|&gt;</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geos_make_collection</span>() <span class="sc">|&gt;</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geos_unary_union</span>()</span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries_union2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-49-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<p>However, you can add the union of the grouped columns as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>countries_summarised_geos <span class="ot">=</span> countries_geos_df <span class="sc">|&gt;</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">contains_a =</span> <span class="fu">str_detect</span>(name_long, <span class="st">"a"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_pop =</span> <span class="fu">mean</span>(pop),</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="fu">geos_unary_union</span>(<span class="fu">geos_make_collection</span>(geos)))</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>countries_summarised_geos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  contains_a     n  mean_pop geometry                                 
+  &lt;lgl&gt;      &lt;int&gt;     &lt;dbl&gt; &lt;geos_geom&gt;                              
+1 FALSE          1 10525347  &lt;POLYGON [18570 83048...489369 371643]&gt;  
+2 TRUE           3 15454250. &lt;POLYGON [169518 -11504...982752 961090]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(countries_summarised_geos<span class="sc">$</span>geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidy_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Convert back to an <code>sf</code> object as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>countries_summarised_geos_sf <span class="ot">=</span> <span class="fu">st_as_sf</span>(countries_summarised_geos)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="co"># waldo::compare(</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   countries_summarised,</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   countries_summarised_geos_sf</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aside from geometry names and minor differences in the geometries, the two objects are identical. This raises the question: why use <code>geos</code> at all? The answer can be found by following the exercises below.</p>
+</section>
+<section id="exercises-4" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exercises-4"><span class="header-section-number">4.2</span> Exercises</h2>
+<ol type="1">
+<li>Benchmark the union operation in <code>geos</code> and <code>sf</code> with the <code>bench::mark()</code> function.
+<ul>
+<li>Which is faster?</li>
+<li>Which is easier to use?</li>
+<li>Which do you prefer?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="worked-example-data-from-poznan" class="level1 page-columns page-full" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Worked example: data from Poznan</h1>
+<p>For many people ‘learning by doing’ is the most effective way to pick up new technical skills. So let’s work with some larger datasets. Note: the input data and code below are adapted from Michael Dorman’s tutorial on <a href="https://geobgu.xyz/presentations/p_2023_ogh">Working with Spatial Data in Python</a>.</p>
+<section id="getting-and-reading-in-the-data" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="getting-and-reading-in-the-data"><span class="header-section-number">5.1</span> Getting and reading-in the data</h2>
+<p>To get the data for this session, download and unzip the <a href="https://github.com/Robinlovelace/opengeohub2023/releases/download/data/data.zip">data.zip</a> file in the releases. You can do that in R with the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="st">"https://github.com/Robinlovelace/opengeohub2023/releases/download/data/data.zip"</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">basename</span>(u)</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">"data"</span>)) {</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(u, f)</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(f)</span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check you have downloaded the files with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "gtfs" "hls"  "osm" </code></pre>
+</div>
+</div>
+</section>
+<section id="vector-data" class="level2 page-columns page-full" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="vector-data"><span class="header-section-number">5.2</span> Vector data</h2>
+<p>Let’s start by reading-in a dataset representing transport-related features around Poznan (note: you need to have downloaded and unzipped the <code>data.zip</code> file into your project or working directory for this to work):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>pol_all <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"./data/osm/gis_osm_transport_a_free_1.shp"</span>)</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>pol_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 282 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 15.76877 ymin: 51.42587 xmax: 18.51031 ymax: 53.52821
+Geodetic CRS:  WGS 84
+# A tibble: 282 × 5
+   osm_id    code fclass          name                                  geometry
+   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                            &lt;POLYGON [°]&gt;
+ 1 27923283  5656 apron           &lt;NA&gt;                 ((16.84088 52.42479, 16.…
+ 2 28396243  5656 apron           &lt;NA&gt;                 ((16.9675 52.32743, 16.9…
+ 3 28396249  5656 apron           &lt;NA&gt;                 ((16.98029 52.32399, 16.…
+ 4 28396250  5656 apron           &lt;NA&gt;                 ((16.97407 52.32418, 16.…
+ 5 30164579  5656 apron           &lt;NA&gt;                 ((16.71011 53.16458, 16.…
+ 6 32225811  5601 railway_station Czerwonak            ((16.9798 52.46868, 16.9…
+ 7 36204378  5622 bus_station     &lt;NA&gt;                 ((16.95469 52.40964, 16.…
+ 8 50701732  5651 airport         Lądowisko Poznań-Be… ((17.19788 52.53491, 17.…
+ 9 55590985  5622 bus_station     Dworzec PKS-stanowi… ((17.20243 52.80927, 17.…
+10 56064358  5651 airport         Port lotniczy Zielo… ((15.76877 52.13175, 15.…
+# ℹ 272 more rows</code></pre>
+</div>
+</div>
+<p>Let’s filter-out a feature that matches a particular character string:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>pol <span class="ot">=</span> pol_all <span class="sc">|&gt;</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">"Port*.+Poz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot it, first with base R and then with <code>{ggplot2}</code>and <code>{tmap}</code>, resulting in maps shown below.</p>
+<div class="page-columns page-full">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pol)</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>pol <span class="sc">|&gt;</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(pol) <span class="sc">+</span> <span class="fu">tm_polygons</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell column-screen-inset-shaded quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-58-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-58-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<p>We’ll read-in a point layer from a CSV file as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>stops_raw <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">'data/gtfs/stops.txt'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2921 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (3): stop_code, stop_name, zone_id
+dbl (3): stop_id, stop_lat, stop_lon
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>stops_df <span class="ot">=</span> stops_raw <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>stop_code)</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">=</span> <span class="fu">st_as_sf</span>(stops_df, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"stop_lon"</span>, <span class="st">"stop_lat"</span>), <span class="at">crs =</span> <span class="st">"EPSG:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="buffers" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="buffers"><span class="header-section-number">5.2.1</span> Buffers</h3>
+<p>The most widly used way to create buffers in R is with the function <code>st_buffer()</code> from the <code>sf</code> package. Let’s create buffers of 150 m around each of the points in the <code>poi_sf</code> dataset. This is done in the following chunk, which first checks to see if the <code>s2</code> spherical geometry engine is set to run (it is by default).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">sf_use_s2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>poi_buffers <span class="ot">=</span> <span class="fu">st_buffer</span>(poi_sf, <span class="at">dist =</span> <span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As described in <a href="https://r.geocompx.org/reproj-geo-data">Chapter 7</a> or Geocomputation with R, <code>sf</code> ‘knows that the world is round’ and uses a spherical geometry engine to calculate distances for unprojected data. This is a major advantage of <code>sf</code> over other packages for working with geographic data, such as <code>GeoPandas</code> in Python, which does not currently support spherical geometry operations (see <a href="https://github.com/geopandas/geopandas/issues/2098">issue 2098 in the GeoPandas issue tracker for details</a>).</p>
+<p>We can measure the area of the buffers with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">=</span> <span class="fu">st_area</span>(poi_buffers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A nice feature of <code>sf</code> is that it returns the area in square meters, even though the input data is in degrees. <code>sf</code> uses the <code>units</code> package behind the scenes to convert between units, meaning you can convert the output to different units, as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  units<span class="sc">::</span><span class="fu">set_units</span>(ha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Units: [ha]
+[1] 7.165668 7.164428 7.165692 7.166715</code></pre>
+</div>
+</div>
+<p>Sometimes it’s useful to drop the <code>units</code> class, which can be done with the <code>units::drop_units()</code> function, as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  units<span class="sc">::</span><span class="fu">set_units</span>(ha) <span class="sc">|&gt;</span></span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  units<span class="sc">::</span><span class="fu">drop_units</span>() <span class="sc">|&gt;</span></span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7 7 7 7</code></pre>
+</div>
+</div>
+</section>
+<section id="spatial-subsetting" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="spatial-subsetting"><span class="header-section-number">5.2.2</span> Spatial subsetting</h3>
+<p>Note: this section is adapted from <a href="https://geobgu.xyz/presentations/p_2023_ogh/01-vector.html#sec-subsetting-by-location">Section 2.12</a> of <a href="https://geobgu.xyz/presentations/p_2023_ogh">Working with Spatial Data in Python</a>. Let’s find the bus stops that are within 150 m of the <code>poi_sf</code> points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>stops_nearby <span class="ot">=</span> stops[poi_buffers, ]</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>stops_nearby</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 4 features and 3 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 16.92882 ymin: 52.44307 xmax: 16.94161 ymax: 52.4653
+Geodetic CRS:  WGS 84
+# A tibble: 4 × 4
+  stop_id stop_name             zone_id            geometry
+    &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;           &lt;POINT [°]&gt;
+1     418 UAM Wydział Geografii A       (16.94108 52.46419)
+2     467 Umultowska            A       (16.92882 52.44426)
+3     468 Umultowska            A       (16.93039 52.44307)
+4     417 UAM Wydział Geografii A        (16.94161 52.4653)</code></pre>
+</div>
+</div>
+</section>
+<section id="spatial-joins" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="spatial-joins"><span class="header-section-number">5.2.3</span> Spatial joins</h3>
+<p>Spatial joins can be performed with the <code>st_join()</code> function as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>pois_joined <span class="ot">=</span> <span class="fu">st_join</span>(poi_buffers, stops)</span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>pois_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 16.92856 ymin: 52.44223 xmax: 16.95195 ymax: 52.46567
+Geodetic CRS:  WGS 84
+# A tibble: 6 × 5
+  name                                        geometry stop_id stop_name zone_id
+* &lt;chr&gt;                                  &lt;POLYGON [°]&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  
+1 Faculty        ((16.93959 52.46441, 16.93957 52.464…     418 UAM Wydz… A      
+2 Faculty        ((16.93959 52.46441, 16.93957 52.464…     417 UAM Wydz… A      
+3 Hotel ForZa    ((16.94759 52.44224, 16.94762 52.442…      NA &lt;NA&gt;      &lt;NA&gt;   
+4 Hotel Lechicka ((16.93275 52.44435, 16.93275 52.444…     467 Umultows… A      
+5 Hotel Lechicka ((16.93275 52.44435, 16.93275 52.444…     468 Umultows… A      
+6 FairPlayce     ((16.9477 52.461, 16.94765 52.46092,…      NA &lt;NA&gt;      &lt;NA&gt;   </code></pre>
+</div>
+</div>
+</section>
+<section id="exercises-5" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="exercises-5"><span class="header-section-number">5.2.4</span> Exercises</h3>
+<ol type="1">
+<li>Create a static map of the stops in Poznan, using the <code>stops</code> object created above, with a mapping package of your preference. Set the colour of each stop by <code>zone_id</code>.
+<ul>
+<li>Bonus: also create an interactive map.</li>
+</ul></li>
+<li><strong>Advanced</strong>: Reproduce the results presented above by following the Python code at <a href="https://geobgu.xyz/presentations/p_2023_ogh/01-vector.html">geobgu.xyz/presentations/p_2023_ogh/01-vector.html</a>.
+<ul>
+<li>Which language do you prefer for the types of task presented here and why?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="raster-data-example" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="raster-data-example"><span class="header-section-number">5.3</span> Raster data example</h2>
+<p>Building on the introduction to <a href="https://geobgu.xyz/presentations/p_2023_ogh/02-raster.html">raster data with Python</a>, this section introduces raster data with the <code>{terra}</code> package.</p>
+<p>Load it as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'terra' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>terra 1.7.55</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'terra'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:tidyr':
+
+    extract</code></pre>
+</div>
+</div>
+<p>Read-in and plot a single raster layer with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>src <span class="ot">=</span> <span class="fu">rast</span>(<span class="st">'data/hls/HLS.S30.T33UXU.2022200T095559.v2.0.B02.tiff'</span>)</span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(src, <span class="at">col =</span> <span class="fu">gray.colors</span>(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-terra-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-terra-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;7: Plotting a single raster layer with terra</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We will translate the following Python code to R:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> glob.glob(<span class="st">'data/hls/*.tiff'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">list.files</span>(<span class="st">"data/hls"</span>, <span class="at">pattern =</span> <span class="st">"tiff"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/hls/HLS.S30.T33UXU.2022200T095559.v2.0.B02.tiff"
+[2] "data/hls/HLS.S30.T33UXU.2022200T095559.v2.0.B03.tiff"
+[3] "data/hls/HLS.S30.T33UXU.2022200T095559.v2.0.B04.tiff"
+[4] "data/hls/HLS.S30.T33UXU.2022200T095559.v2.0.B08.tiff"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">rast</span>(files)</span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+dimensions  : 3660, 3660, 4  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : 6e+05, 709800, 5790240, 5900040  (xmin, xmax, ymin, ymax)
+coord. ref. : WGS 84 / UTM zone 33N (EPSG:32633) 
+sources     : HLS.S30.T33UXU.2022200T095559.v2.0.B02.tiff  
+              HLS.S30.T33UXU.2022200T095559.v2.0.B03.tiff  
+              HLS.S30.T33UXU.2022200T095559.v2.0.B04.tiff  
+              HLS.S30.T33UXU.2022200T095559.v2.0.B08.tiff  
+names       : Blue, Green, Red, NIR_Broad </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: [summary] used a sample</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Blue            Green             Red           NIR_Broad   
+ Min.   :-213.0   Min.   :  15.0   Min.   : -12.0   Min.   :  56  
+ 1st Qu.: 202.0   1st Qu.: 435.0   1st Qu.: 313.0   1st Qu.:2088  
+ Median : 319.0   Median : 617.0   Median : 586.0   Median :2469  
+ Mean   : 342.3   Mean   : 623.7   Mean   : 669.2   Mean   :2648  
+ 3rd Qu.: 434.0   3rd Qu.: 746.0   3rd Qu.: 955.0   3rd Qu.:3174  
+ Max.   :4508.0   Max.   :5131.0   Max.   :5428.0   Max.   :6092  </code></pre>
+</div>
+</div>
+<p>We can plot the result as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-terra-plot-basic" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-terra-plot-basic-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;8: Output of <code>plot(r)</code>, showing the four bands of the raster layer</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown, the result is an object with Blue, Green, Red and NIR bands, in that order. We can select only Red, Green, Blue bands, in that order, as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>r_rgb <span class="ot">=</span> r[[<span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you try plotting the result with <code>plotRGB(r)</code>, you will get an error. You can use the <code>stretch</code> argument of the function to stretch the values and avoid errors caused by outliers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRGB</span>(r, <span class="at">stretch =</span> <span class="st">"lin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-terra-plot-rgb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-terra-plot-rgb-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;9: Plotting a RGB raster layer with terra</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also remove outliers with the <code>stretch()</code> or <code>clamp()</code> functions or manually, as shown below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># r_clamp = clamp(r, 0, 4000)</span></span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>r_stretch <span class="ot">=</span> <span class="fu">stretch</span>(r_rgb, <span class="at">minq =</span> <span class="fl">0.001</span>, <span class="at">maxq =</span> <span class="fl">0.999</span>)</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>top_01pct <span class="ot">=</span> <span class="fu">quantile</span>(<span class="fu">values</span>(r_rgb), <span class="at">probs =</span> <span class="fl">0.999</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>bottom_01pct <span class="ot">=</span> <span class="fu">quantile</span>(<span class="fu">values</span>(r_rgb), <span class="at">probs =</span> <span class="fl">0.001</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>r_to_plot <span class="ot">=</span> r_rgb</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>r_to_plot[r_rgb <span class="sc">&gt;</span> top_01pct] <span class="ot">=</span> top_01pct</span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>r_to_plot[r_rgb <span class="sc">&lt;</span> bottom_01pct] <span class="ot">=</span> bottom_01pct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-terra-plot-rgb-clamp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid figure-img" width="672"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="tidy_files/figure-html/unnamed-chunk-75-2.png" class="img-fluid figure-img" width="672"></p>
+</div>
+</div>
+</div>
+<figcaption class="figure-caption">Figure&nbsp;10: Plotting a RGB raster layer with terra, with outliers handled with <code>stretch()</code> (left) and manually (right)</figcaption>
+</figure>
+</div>
+<p>Save the combined raster as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write the r file:</span></span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRaster</span>(r, <span class="st">"data/hls/combined.tif"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRaster</span>(r_to_plot, <span class="st">"data/hls/r_to_plot.tif"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="masking-and-cropping" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="masking-and-cropping"><span class="header-section-number">5.3.1</span> Masking and cropping</h3>
+<p>We can mask the raster with the <code>pol</code> polygon object as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>pol_projected <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_transform</span>(pol, <span class="at">crs =</span> <span class="fu">crs</span>(r))</span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>r_masked <span class="ot">=</span> <span class="fu">mask</span>(r, pol_projected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(r_masked)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: [summary] used a sample</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Blue            Green             Red           NIR_Broad     
+ Min.   : 351.0   Min.   : 623.0   Min.   : 739.0   Min.   :1165    
+ 1st Qu.: 482.0   1st Qu.: 744.8   1st Qu.: 803.0   1st Qu.:2136    
+ Median : 526.0   Median : 775.0   Median : 892.0   Median :2338    
+ Mean   : 578.1   Mean   : 843.7   Mean   : 963.0   Mean   :2228    
+ 3rd Qu.: 569.2   3rd Qu.: 821.2   3rd Qu.: 985.2   3rd Qu.:2485    
+ Max.   :1618.0   Max.   :2016.0   Max.   :2231.0   Max.   :2709    
+ NA's   :100467   NA's   :100467   NA's   :100467   NA's   :100467  </code></pre>
+</div>
+</div>
+<p>As shown in the summary of the result, the majority of the values are now NA. That’s how masking works: it sets all values outside the polygon to NA. We can crop the raster to a 500 m buffer around the polygon as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>r_cropped <span class="ot">=</span> <span class="fu">crop</span>(r, sf<span class="sc">::</span><span class="fu">st_buffer</span>(pol_projected, <span class="at">dist =</span> <span class="dv">500</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s plot the result, illustrated in <a href="#fig-terra-plot-rgb-cropped">Figure&nbsp;11</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(<span class="fu">stretch</span>(r_cropped[[<span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)]], <span class="at">minq =</span> <span class="fl">0.001</span>, <span class="at">maxq=</span> <span class="fl">0.98</span>)) <span class="sc">+</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_rgb</span>() <span class="sc">+</span></span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(pol_projected) <span class="sc">+</span></span>
+<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">bg.color =</span> <span class="st">"white"</span>, <span class="at">bg.alpha =</span> <span class="fl">0.6</span>, <span class="at">text.size =</span> <span class="fl">0.8</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-terra-plot-rgb-cropped" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tidy_files/figure-html/fig-terra-plot-rgb-cropped-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;11: Result of plotting a cropped RGB raster layer with the tmap package</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises-6" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="exercises-6"><span class="header-section-number">5.3.2</span> Exercises</h3>
+<ol type="1">
+<li>Experiment with arguments passed to <code>clamp()</code>, <code>stretch()</code> and <code>plotRGB()</code> to see how they affect the output.</li>
+<li>Try plotting the raster in another program like QGIS, which looks better?</li>
+<li><strong>Advanced</strong>: Reproduce the results presented above by following the Python code at <a href="https://geobgu.xyz/presentations/p_2023_ogh/02-raster.html">geobgu.xyz/presentations/p_2023_ogh/02-raster.html</a>.
+<ul>
+<li>Which language do you prefer for the types of task presented here and why?</li>
+</ul></li>
+<li><strong>Advanced</strong>: Try plotting the raster with <code>{ggplot2}</code> and <code>{tmap}</code>.
+<ul>
+<li>Which do you prefer and why?</li>
+</ul></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="other-tidy-packages" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Other tidy packages</h1>
+<p>There are many packages that integrate with the <code>tidyverse</code>, or which are inspired by it. Options include:</p>
+<ul>
+<li><a href="https://dieghernan.github.io/tidyterra/"><code>tidyterra</code></a> for working with raster data</li>
+<li><a href="https://duckdb.org/docs/api/r.html">DuckDB</a> is a high-performance in-memory database that can be used with <code>dplyr</code> that is mature, well documented, and has a <a href="https://duckdb.org/docs/extensions/spatial">spatial extension</a></li>
+<li><a href="https://github.com/tidyverse/dtplyr/">dtplyr</a>, a <code>dplyr</code>-compliant interface to <a href="https://rdatatable.gitlab.io/data.table/"><code>data.table</code></a> for working with large datasets</li>
+<li>The <code>collapse</code> package, which supports <code>tidyverse</code> syntax and which has some <a href="https://sebkrantz.github.io/collapse/articles/collapse_and_sf.html">integration with <code>sf</code></a></li>
+<li><a href="https://github.com/etiennebacher/tidypolars"><code>tidypolars</code></a>, an R interface to the <a href="https://github.com/pola-rs/polars"><code>polars</code></a> Rust crate (note: there is also a popular <a href="https://pola-rs.github.io/polars-book/user-guide/installation/">Python interface</a></li>
+<li><a href="https://github.com/geoarrow">The geoarrow spec</a> and nascent implementations, none of which are yet ready for production use</li>
+</ul>
+<p>How to assess which to use? My advice would be to focus on solving the problem, rather than the tools, in which case the <code>tidyverse</code> + <code>sf</code> + <code>terra</code> or <code>stars</code> should be more than adequate for most purposes. There can be major time savings made by sticking to established tools that are well documented and which have a large user base.</p>
+<p>Developer time is more valuable than computer time, so a major factor in deciding which tool to use should be how reliable it is. Time spent debugging issues can be a major time sink, especially for new packages that are not yet well tested or documented. And for most purposes, the tools outlined in the previous sections are more than adequate, solving perhaps 90% of the problems you’re likely to encounter.</p>
+<p>There are times when performance is important but as the saying goes, premature optimisation is the root of all evil, so don’t worry about performance until you have a working solution.</p>
+<p>If you <em>do</em> need to wait longer than is feasible for your code to run, it is worth trying to identify the bottleneck (is there are a solution involving changing input datasets or workflows?) before having a look at alternatives. Established benchmarks for <em>non-spatial data</em> are https://duckdblabs.github.io/db-benchmark/ and https://www.pola.rs/benchmarks.html .</p>
+<p>This section is offered more as a place to experiment than any concrete advice. My concrete advice is focus on the problem and solving it with the software is most appropriate for your use case.</p>
+<section id="tidypolars" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="tidypolars"><span class="header-section-number">6.1</span> <code>tidypolars</code></h2>
+<p>If you want to give this package a spin, run the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'tidypolars'</span>, </span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">'https://etiennebacher.r-universe.dev/bin/linux/jammy/4.3'</span>, <span class="fu">getOption</span>(<span class="st">"repos"</span>))</span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rsgeo" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="rsgeo"><span class="header-section-number">6.2</span> <code>rsgeo</code></h2>
+<p>A work in progress is the <a href="https://github.com/JosiahParry/rsgeo"><code>rsgeo</code> package</a>, which aims to provide an seamless interface between R and the <code>geo</code> Rust crate. This could open the possiblity of calling other high-performance Rust libraries from R, although the package is at an early stage of development and probably not ready for production use.</p>
+<p>We can check the installation works as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'rsgeo'</span>, <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">'https://josiahparry.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsgeo)</span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>countries_rs  <span class="ot">=</span> <span class="fu">as_rsgeo</span>(sf<span class="sc">::</span><span class="fu">st_geometry</span>(countries_projected))</span>
+<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a>countries_rs</span>
+<span id="cb153-4"><a href="#cb153-4" aria-hidden="true" tabindex="-1"></a>bench<span class="sc">::</span><span class="fu">mark</span>(<span class="at">check =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb153-5"><a href="#cb153-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sf =</span> sf<span class="sc">::</span><span class="fu">st_union</span>(countries_projected),</span>
+<span id="cb153-6"><a href="#cb153-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">geos =</span> geos<span class="sc">::</span><span class="fu">geos_make_collection</span>(geos<span class="sc">::</span><span class="fu">geos_unary_union</span>(countries_geos)),</span>
+<span id="cb153-7"><a href="#cb153-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">rsgeo =</span> rsgeo<span class="sc">::</span><span class="fu">union_geoms</span>(countries_rs)</span>
+<span id="cb153-8"><a href="#cb153-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="arrow" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="arrow"><span class="header-section-number">6.3</span> Arrow</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co"># write countries_projected to parquet file:</span></span>
+<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_parquet</span>(countries_projected, <span class="st">"data/countries_projected.parquet"</span>) <span class="co"># Fails</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="further-reading" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Further reading</h1>
+<p>For more on raster data see https://kadyb.github.io/OGH2023/Clustering.html</p>
+<p>The following free and open access resources provide a strong foundation for further learning in this space.</p>
+<ul>
+<li><p><span class="citation" data-cites="wickham2023">Wickham, Cetinkaya-Rundel, and Grolemund (<a href="#ref-wickham2023" role="doc-biblioref">2023</a>)</span>, hosted at <a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a>, is a detailed introduction to the tidyverse</p></li>
+<li><p><span class="citation" data-cites="lovelace2019">Lovelace, Nowosad, and Muenchow (<a href="#ref-lovelace2019" role="doc-biblioref">2019</a>)</span> provides a wide ranging yet beginner-friendly introduction to using R for geographic analysis</p></li>
+<li><p><span class="citation" data-cites="pebesma2023">Pebesma and Bivand (<a href="#ref-pebesma2023" role="doc-biblioref">2023</a>)</span>, a textbook on spatial data science by the developers of <code>sf</code> and other core ‘rspatial’ packages</p></li>
+<li><p>Any other suggestions welcome, there’s much more out there!</p></li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-lovelace2019" class="csl-entry" role="listitem">
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with <span>R</span></em>. CRC Press. <a href="https://r.geocompx.org/">https://r.geocompx.org/</a>.
+</div>
+<div id="ref-pebesma2023" class="csl-entry" role="listitem">
+Pebesma, Edzer, and Roger Bivand. 2023. <em>Spatial Data Science: With Applications in r</em>. CRC Press. <a href="https://r-spatial.org/book/">https://r-spatial.org/book/</a>.
+</div>
+<div id="ref-wickham2014" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>The Journal of Statistical Software</em> 14 (5). <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
+</div>
+<div id="ref-wickham2019" class="csl-entry" role="listitem">
+———. 2019. <em>Advanced r, Second Edition</em>. 2nd edition. Boca Raton: Chapman; Hall/CRC.
+</div>
+<div id="ref-wickham2023" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Cetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. 2nd edition. O’Reilly Media.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
