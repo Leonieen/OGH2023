@@ -1,0 +1,66 @@
+---
+title: "Spatial ML model assessment and interpretation"
+---
+
+**Date**: 2023-08-31, 09:30–10:30 and 2023-08-31, 11:00-12:30
+
+**Speaker**: Alexander Brenning
+
+**Understanding Spatial ML Model Assessment**: The course shed light on the advanced techniques for interpreting machine-learning models with a focus on spatial analysis. It introduced the concept of spatial prediction error profiles (SPEPs) and spatial variable importance profiles (SVIPs) as tools to dissect and understand the predictive performance of ML models over different spatial extents.
+
+**Skill Enhancement**: The training provided me with insights into:
+- The application of SPEPs and SVIPs for model-agnostic assessment.
+- The analysis of regionalization and classification tasks using various ML algorithms.
+- The comparison and contrast of model performance across different spatial scales and contexts.
+
+In this course I've gathered invaluable insights and practical skills that have significantly broadened my understanding of satellite data applications. The course provided a robust foundation for working with some of the most sophisticated tools in remote sensing within Python and R environments.
+
+The "Spatial ML model assessment and interpretation" course provided a comprehensive look at advanced methodologies for understanding machine learning (ML) models within a spatial context.
+
+## Introduction
+The presentation began with a focus on the challenges of interpreting complex ML models used for spatial prediction tasks. It emphasized the need for new diagnostic tools to better understand model behavior in terms of predictive skill and variable importance over space.
+
+## Diagnostic Tools Proposed
+* **Spatial Prediction Error Profiles (SPEPs)**: Introduced as a method to assess the spatial behavior of predictive models, focusing on the prediction distance to diagnose errors across different spatial locations.
+* **Spatial Variable Importance Profiles (SVIPs)**: Proposed for evaluating the contribution of each variable to the model’s predictive power, factoring in the spatial correlation and prediction horizon.
+
+## Case Studies Demonstrating the Tools
+1. **Landslide Susceptibility:**
+   - The objective was to identify areas prone to landslides using terrain attributes, land use, and other geographical features.
+   - The study highlighted how geostatistical methods, linear models, and ML algorithms like random forest differ in spatial prediction when assessed with SPEPs and SVIPs.
+
+2. **Remotely-Sensed Land Cover Classification:**
+   - Aimed at classifying crop types using Landsat data.
+   - Demonstrated the use of SPEPs and SVIPs in understanding the spatial generalizability of models and the limitations of non-spatial cross-validation techniques.
+
+
+## Limitations and Recommendations
+- The presentation reviewed the limitations of commonly used cross-validation techniques in spatial modeling and suggested modelers focus on the intended spatial prediction horizon rather than on the range of autocorrelation.
+- It advocated for SPEPs and SVIPs as tools to enrich the spatial data science toolkit, potentially improving model interpretation, selection, and design.
+
+## Practical Guidance
+- Provided step-by-step instructions on how to implement SPEPs and SVIPs using R, with practical code examples and discussions on the interpretation of results.
+- Emphasized the importance of matching the model assessment approach to the specific spatial prediction tasks and the potential biases that may arise from inappropriate assessment methods.
+
+### Here are some insights from the course:
+
+```{=html}
+<iframe src="material/model_assessment.html" width="100%" height="400"></iframe>
+
+```{=html}
+<iframe src="material/model_interpretation.html" width="100%" height="400"></iframe>
+
+## Concluding Insights
+* The presentation underscored the pragmatic use of models based on their predictive performance and the role of cross-validation in reducing bias.
+* It was suggested that spatial CV should account for spatial dependence, and modelers should use SPEPs to gain detailed insights into predictive behavior.
+* A caution was raised against the over-optimistic assessment of models due to the inappropriate choice of validation data or misinterpretation of variable importance.
+
+## Final Thoughts and Reflections
+* The course instilled the importance of critical assessment and interpretation of ML models in spatial applications.
+* There was a strong emphasis on the practical application of concepts learned, with a focus on ensuring the accuracy and reliability of spatial predictions.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/RFXDZW/)
+[Github](https://github.com/alexanderbrenning/ogh23_ml)
+[Video](https://doi.org/10.5446/63464#t=00:00,09:49)

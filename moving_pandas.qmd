@@ -1,0 +1,51 @@
+---
+title: "Data Engineering for Mobility Data Science (with Python and DVC)"
+---
+
+**Date**: 2023-08-31, 13:30–15:00
+
+**Speaker**: Anita Graser
+
+## Course Overview
+
+This session was dedicated to exploring the integration of MovingPandas and DVC in Mobility Data Science. The course was designed for those with a basic understanding of (Geo)Pandas and version control systems like Git, focusing on practical applications of these advanced tools in mobility data analysis.
+
+## MovingPandas
+
+MovingPandas stands as a powerful Python library for analyzing and visualizing movement data. Built on GeoPandas, it provides comprehensive functionalities to manipulate and plot trajectories, offering a robust toolkit for movement analytics. For examples of analytics supported by MovingPandas, attendees were encouraged to visit: MovingPandas Examples.
+
+## DVC (Data Version Control)
+
+DVC is a groundbreaking tool for data version control and machine learning experiment tracking. It operates similarly to source code version control systems, such as Git, but is geared towards managing data and experiments. In this session, DVC was used in tandem with Git to maintain a comprehensive track of movement data analytics workflows.
+
+## Notebooks Overview
+
+### Introduction
+
+This introductory notebook provided a foundational understanding of MovingPandas, demonstrating its capabilities in movement data analysis. It walked participants through the initial steps of data manipulation and trajectory plotting, setting the stage for more complex analytics.
+
+```{=html}
+<iframe src="material/introduction_mpd.html" width="100%" height="400"></iframe>
+
+### Notebook
+
+This Notebook delved deeper into the application of MovingPandas and DVC in Mobility Data Science. This session highlighted the integration of these tools, showcasing how to effectively manage and version control large datasets and complex analytics workflows.
+
+```{=html}
+<iframe src="material/notebook_mpd.html" width="100%" height="400"></iframe>
+
+### Tutorial Overview
+
+The tutorial offered a comprehensive guide on the use of MovingPandas and DVC, from installation to practical application. It served as a valuable reference material for participants, providing step-by-step instructions and best practices in data engineering for mobility data science.
+
+```{=html}
+<iframe src="material/Tutorial_mpd.html" width="100%" height="400"></iframe>
+
+## Final Thoughts
+This course provided an insightful look into the innovative applications of MovingPandas and DVC in the field of Mobility Data Science. It emphasized the importance of efficient data engineering practices and the integration of advanced tools in handling complex movement data. The combination of theoretical knowledge and practical exercises made this session highly beneficial for professionals and enthusiasts in the field.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/YKZKSA/)
+[Github](https://github.com/movingpandas/movingpandas-examples/tree/opengeohub2023)
+[Video](https://doi.org/10.5446/63360#t=00:00,02:14)

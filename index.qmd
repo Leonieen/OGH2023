@@ -1,0 +1,39 @@
+---
+title: "OpenGeoHub Summer School 2023: Processing and Visualizing Large Geospatial Data Using R, Python, and Julia"
+---
+
+## Event Overview
+**Dates**: 27 August 2023 – 02 September 2023  
+**Location**: Adam Mickiewicz University, Poznan, Poland
+
+Website: [OGHSummerSchool2023](https://opengeohub.org/summer-school/opengeohub-summer-school-poznan-2023/)
+
+Welcome to my personal summary of the OpenGeoHub Summer School 2023. This year, the event, held at Adam Mickiewicz University in Poznan, focused on "Processing and Visualizing Large Geospatial Data Using R, Python, and Julia". As a participant, I had the opportunity to dive into a range of topics, from data engineering in Python to geospatial analysis with Julia and R. This website is a curated collection of my experiences, offering insights into the courses I attended and the knowledge I gained. While this selection is not exhaustive, it represents the sessions that resonated most with me, both during the event and in my follow-up studies.
+
+## Exploring the Courses
+This website is structured as a collection of separate pages, each dedicated to a specific course I attended at the OpenGeoHub Summer School, either in person in Poznan or revisited later through provided documentation and videos. Due to the parallel scheduling of the sessions, I carefully selected courses that aligned closely with my interests and professional goals. On these pages, you'll find detailed summaries, reflections, and key takeaways from each course, offering a glimpse into my learning journey and the diverse range of topics covered, from advanced geospatial data processing to innovative methods in data sharing and visualization. This selection provides a unique perspective on the depth and breadth of the summer school's curriculum.
+
+## Social Activities
+- **Sunday, August 27**: My journey began with a pleasant surprise upon discovering the local transport app – a true highlight. The dormitory at Adam Mickiewicz University exuded a unique soviet charm, and eduroam's fear of commitment immediately reminded me of Augsburg. The evening unfolded with an exciting axe-throwing session, a novel way to meet fellow participants, followed by a delightful dinner at a Greek restaurant, humorously chosen by our Italian peers who, throughout the week, ensured we dined only at 'Italian-approved' eateries.
+  
+- **Monday, August 28**: The day started with a shared drive to the university, where Tom Hengl welcomed us with an overview of the week's activities, including the upcoming hackathons. The coffee breaks, with their incredibly delicious cakes, were a daily highlight. The afternoon featured an intense 'research speed dating' session, a unique approach to networking and learning about each other's work.
+  
+- **Tuesday, August 29**: An outdoor excursion led us to the Morasko Sanctuary and its famous meteorite discovery site. Our guide, Miroslaw Makohonienko, captivated us with his enthusiasm and extensive knowledge about the area.
+
+- **Wednesday, August 30**: The day was marked by insightful discussion panels and opportunities for deeper networking with peers and experts.
+
+- **Thursday, August 31**: A 'city, location-based game' allowed us to explore Poznan in a fun and engaging way. The day concluded with a happy hour in a local pub, where we savored traditional Polish snacks.
+
+- **Friday, September 1**: The final sessions of the summer school, including the announcement of the hackathon winners, marked the culmination of an intellectually enriching week.
+
+- **Saturday, September 2**: Our adventure in Poznan continued with a full-day excursion, once again guided by the charismatic Miroslaw Makohonienko. Highlights included visits to the cathedral, the archaeological museum, and the fascinating Enigma Museum, a testament to the vital role of Polish mathematicians in World War II history.
+
+
+
+## Words of Appreciation
+I'm incredibly grateful for the opportunity to attend the OpenGeoHub Summer School. The event was not only educational but also an excellent platform for networking and sharing ideas. A big thank you to the OpenGeoHub Foundation and everyone involved in making this event a success. I look forward to applying the knowledge gained in my future projects and career.
+
+---
+
+Explore the other pages for detailed summaries and insights from various courses held during the summer school.
+

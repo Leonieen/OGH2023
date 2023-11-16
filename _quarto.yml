@@ -1,0 +1,41 @@
+project:
+  type: website
+
+website:
+  title: "OGH2023"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: r_lovelace.qmd
+        text: R Spatial
+      - href: Sentinel.qmd
+        text: Sentinel 
+      - href: clustering_spatial_r.qmd
+        text: Clustering
+      - href: julia.qmd
+        text: Julia
+      - href: spatial_ml.qmd
+        text: Spatial ML
+      - href: openeo.qmd
+        text: openEO
+      - href: env_time_series.qmd
+        text: Environmental time series
+      - href: panel_discussion.qmd
+        text: Panel discussion
+      - href: xcube.qmd
+        text: xcube
+      - href: python_toolchain.qmd
+        text: Python IML
+      - href: moving_pandas.qmd
+        text: MovingPandas
+      - href: sharing.qmd
+        text: Sharing knowledge
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+

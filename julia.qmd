@@ -1,0 +1,58 @@
+---
+title: "Processing Geospatial Data with JuliaGeo"
+---
+
+**Date**: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30
+
+**Speaker**: Maarten Pronk
+
+**Exploration of JuliaGeo**: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia's general-purpose programming prowess and specialized geospatial packages.
+
+**Innovation in Geospatial Analysis**: The session encouraged hands-on learning with Julia's tools for spatial data and opened discussions on the language's application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.
+
+**Reflection on OSS and Teaching Style**: An appreciation for Maarten Pronk's engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.
+
+
+I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.
+
+The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten's open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.
+
+JuliaGeo's session was split into two parts: the first provided an introduction to Julia's general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.
+
+## Julia Code
+
+The following notebooks show, what code we worked on during the course
+
+### Introduction to Julia with "intro.ipynb"
+
+This notebook served as our first foray into Julia, presenting the language's fundamentals and scripting capabilities. It was an eye-opener to Julia's potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.
+
+<iframe src="material/julia_intro.html" width="100%" height="400"></iframe>
+
+### Exploring JuliaGeo with "juliageo.ipynb"
+
+Diving into the "juliageo.ipynb" notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.
+
+<iframe src="material/juliageo.html" width="100%" height="400"></iframe>
+
+### Package Management with "package-manager.ipynb"
+
+The "package-manager.ipynb" notebook provided a practical guide to Julia's package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.
+
+<iframe src="material/julia_package-manager.html" width="100%" height="400"></iframe>
+
+### Parallel Computing in Julia with "parallel.ipynb"
+
+Lastly, "parallel.ipynb" introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.
+
+<iframe src="material/julia_parallel.html" width="100%" height="400"></iframe>
+
+## Final Remarks
+
+My admiration for Maarten Pronk's teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/)
+[Github](https://github.com/evetion/OGH2023)
+[Video](https://doi.org/10.5446/63089#t=00:00,05:05)

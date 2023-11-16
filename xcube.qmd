@@ -1,0 +1,37 @@
+---
+title: "xcube for Spatiotemporal Data Analysis and Visualization"
+---
+
+**Date**: 2023-08-30, 13:30–15:00 and 2023-08-30, 15:30–17:00
+
+**Speaker**: Alicja Balfanz
+
+## Introduction to xcube
+
+This session provided an in-depth exploration of xcube, an open-source Python package based on xarray, designed for Earth observation (EO) data analysis. The focus was on transforming EO data into analysis-ready, self-contained data cubes suitable for cloud publishing.
+
+xcube is an innovative open-source software package developed primarily for processing and analyzing Earth Observation (EO) data. Based on the xarray package, xcube is designed to handle spatiotemporal data efficiently, making it a powerful tool in the field of remote sensing and geospatial data analysis.
+
+## Key Features of xcube
+
+* **Data Cube Technology**: xcube transforms traditional EO data into multidimensional data cubes, making it easier to manipulate and analyze large datasets over space and time.
+* **Analysis-Ready Data**: The package focuses on providing data in an analysis-ready format. This means that users can spend less time on data preprocessing and more on actual analysis.
+* **Cloud Compatibility**: xcube's data cubes can be published and stored in the cloud, facilitating easy access and scalable analysis.
+* **Support for Various EO Data Sources**: xcube is designed to work with data from various EO missions, including but not limited to Landsat and Sentinel. This makes it versatile for different types of environmental analysis.
+
+## Workshop Objectives and Coverage
+
+* **xcube Ecosystem**: Introduction to the ecosystem surrounding xcube, including its software components and functionalities.
+* **Data Cube Generation**: Learning how xcube converts various EO data sources into accessible data cubes.
+* **Spatiotemporal Analysis and Visualization**: Hands-on experience in using these data cubes for in-depth spatiotemporal data analysis and visualization.
+
+## Embedding Workshop Materials
+
+```{=html}
+<iframe src="material/06_Spatial_Regridding_and_Masking_Fire_example.html" width="100%" height="400"></iframe>
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/HFXFCB/)
+[Github](https://github.com/deepesdl/deepesdl-doc/blob/main/notebooks/06_Spatial_Regridding_and_Masking.ipynb)
+[Video](https://doi.org/10.5446/63359#t=00:00,00:57)

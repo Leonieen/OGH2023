@@ -1,0 +1,39 @@
+---
+title: "Tidy Geographic Data in R"
+---
+
+**Date**: 2023-08-28, 11:00–12:30 and 2023-08-28, 13:30–15:00
+
+**Speaker**: Robin Lovelace
+
+**Mastering 'Tidy' Geospatial Analysis in R**: A detailed walkthrough of managing and visualizing geographic data with 'tidy' principles using the `sf` package in harmony with the tidyverse.
+
+**Leveraging R Packages for Geospatial Data**: The course illuminated the advantages of using `sf` and tidyverse together, showcasing how this combination enhances data analysis efficiency and code readability.
+
+**Broadening the Data Analysis Toolkit**: Exposure to various R packages and tools such as `geos` and `terra`, and discussions on alternative data analysis frameworks like `data.table`. Insight into how 'tidy' concepts are implemented across programming languages, with practical implications for project management and development environments.
+
+
+As someone traditionally versed in languages other than R, I found the "Tidy geographic data with sf, dplyr, ggplot2, geos and friends" course to be the perfect introduction to managing and visualizing geographical data using R's tidy principles. This workshop was an enlightening expedition into the 'tidy' data concept and its application in geospatial analysis. The course unveiled the power of the sf package as a tool for efficient geographic data management within the tidyverse ecosystem, streamlining the way data scientists can read, write, manipulate, and plot geographic information.
+
+## Course Insights
+The workshop was structured around interactive learning sessions that taught us how to integrate packages such as sf with tidyverse tools for writing more readable and efficient code. We explored the geos package's capabilities for geometric operations and discussed alternatives like the terra package for raster data processing. The discussion also spanned to project management tools, emphasizing the utility of IDEs like VS Code and RStudio, and the importance of version control systems in a collaborative environment.
+
+## Practical Part
+For a hands-on look at the tidy Quarto document, which outlines the coding exercises and examples we worked through, see the embedded content below:
+
+```{=html}
+<iframe src="material/tidy.html" width="100%" height="400"></iframe>
+
+## Final Reflection
+
+Embracing the 'tidy' philosophy has not only honed my R programming skills but also expanded my methodological approach to data analysis. I am now better equipped to tackle geospatial data challenges and look forward to integrating these techniques into my work, leveraging the power of R's coherent and comprehensive suite of packages for geographic data analysis.
+
+
+Interested in how to deal with geospatial data in Python, feel free to visit the page from Michal Dorman about his course: 
+[Working with Spatial Data in Python](https://geobgu.xyz/presentations/p_2023_ogh/).
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/7JN3FV/)
+[Github](https://github.com/robinlovelace/opengeohub2023)
+[Video](https://doi.org/10.5446/63088#t=00:00,08:19)

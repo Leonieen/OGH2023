@@ -1,0 +1,177 @@
+---
+title: "Task"
+format: html
+editor: visual
+---
+
+1.   List and load spectral bands
+
+```{r}
+# list files from a directory
+library("terra")
+files = list.files("clustering_data/data/task", pattern = "\\.TIF$", full.names = TRUE)
+files
+```
+
+```{r}
+#Display metadata
+# load raster data
+landsat = rast(files)
+landsat # calling the object displays the metadata
+```
+
+shorten and rename spectral bands
+
+```{r}
+names(landsat) # original names
+names(landsat) = paste0("B", 1:7) # shorten the names
+names(landsat) # new names
+```
+
+2.  Load vector data and transform CRS
+
+```{r}
+# load vector data
+poly = vect("clustering_data/data/task/Szamotuly.gpkg")
+poly
+```
+
+```{r}
+poly = project(poly, "EPSG:32633")
+crs(poly, describe = TRUE)$code # check EPSG after transformation
+```
+
+3.  Crop raster data to the area.
+
+    ```{r}
+    colors = gray.colors(n = 20) # define the color scheme
+    plot(landsat[[5]], main = "Szamotuly county", col = colors) # plot NIR band
+    plot(poly, add = TRUE) # add polygon
+    ```
+
+    ```{r}
+    landsat = crop(landsat, poly, mask = TRUE)
+    plot(landsat[[5]], main = "Szamotuly county", col = colors)
+    plot(poly, add = TRUE)
+    ```
+
+4.  Scale the values and remove outliers
+
+    ```{r}
+    summary(landsat)
+    ```
+
+    ```{r}
+    landsat = landsat * 2.75e-05 - 0.2
+    summary(landsat)
+    ```
+
+5.  Prepare the matrix for classification (remove empty values and sample).
+
+    ```{r}
+    landsat[landsat < 0] = NA
+    landsat[landsat > 1] = NA
+    ```
+
+    ```{r}
+    plot1 = plotRGB(landsat, r = 4, g = 3, b = 2, scale = 1, stretch = "lin")
+    ```
+
+    ```{r}
+    library("cluster")
+    ```
+
+    ```{r}
+    mat = values(landsat)
+    nrow(mat) # print number of rows/pixels
+    ```
+
+    ```{r}
+    mat_omit = na.omit(mat)
+    nrow(mat_omit)
+    ```
+
+    ```{r}
+    set.seed(1)
+    mdl = kmeans(mat_omit, centers = 5)
+    ```
+
+    ```{r}
+    mdl$centers
+    ```
+
+    ```{r}
+    head(mdl$cluster) # display the first 6 elements
+    ```
+
+6.  Use the k-means algorithm for clustering and validate the results with the silhouette index. Check how the results change depending on the number of clusters. Optionally, you can test [another clustering method](https://www.statmethods.net/advstats/cluster.html).
+
+    ```{r}
+    set.seed(1)
+    # draw sample indexes
+    idx = sample(1:nrow(mat_omit), size = 10000)
+    head(idx)
+    ```
+
+    ```{r}
+    # calculate silhouette index
+    sil = silhouette(mdl$cluster[idx], dist(mat_omit[idx, ]))
+    summary(sil)
+    ```
+
+    ```{r}
+    colors = rainbow(n = 5)
+    plot(sil, border = NA, col = colors, main = "Silhouette Index")
+    ```
+
+7.  Try to interpret what the clusters represent using a boxplot and RGB composition.
+
+    ```{r}
+    library("tidyr") # data transformation
+    library("ggplot2") # data visualization
+    ```
+
+    ```{r}
+    stats = cbind(mat_omit[idx, ], cluster = mdl$cluster[idx])
+    stats = as.data.frame(stats)
+    head(stats)
+    ```
+
+    ```{r}
+    stats = pivot_longer(stats, cols = 1:7, names_to = "band", values_to = "value")
+    # change the data type to factor
+    stats$cluster = as.factor(stats$cluster)
+    stats$band = as.factor(stats$band)
+    head(stats)
+    ```
+
+    ```{r}
+    ggplot(stats, aes(x = band, y = value, fill = cluster)) +
+      geom_boxplot()
+    ```
+
+    ```{r}
+    ggplot(stats, aes(x = band, y = value, fill = cluster)) +
+      geom_boxplot(show.legend = FALSE) +
+      scale_fill_manual(values = colors) +
+      facet_wrap(vars(cluster)) +
+      xlab("Spectral band") +
+      ylab("Reflectance") +
+      theme_light()
+    ```
+
+    ```{r}
+    vec = rep(NA, ncell(landsat)) # prepare an empty vector
+    vec[complete.cases(mat)] = mdl$cluster # assign clusters to vector if not NA
+    clustering = rast(landsat, nlyrs = 1, vals = vec) # create raster
+    ```
+
+    3.  Present the results on a map and choose the appropriate color scheme.
+
+    ```{r}
+    colors = c("#91632b", "#086209", "#fdd327", "#d9d9d9", "#d20000")
+    category = c("barren", "forest", "cropland", "bare soil", "urban")
+    plot2 = plot(clustering, col = colors, type = "classes", levels = category)
+    ```
+
+   

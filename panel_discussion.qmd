@@ -1,0 +1,53 @@
+---
+title: "Combating Climate Crisis: Insights from R, Python, and Julia Communities"
+---
+
+**Date**: 2023-08-30, 17:15–18:45
+
+## Overview of the Discussion Panel
+
+The discussion panel brought together experts in the fields of spatial data science and geoinformatics to explore how the development communities of R, Python, and Julia can contribute to combating the climate crisis. This interactive session provided a platform for participants to engage with leading experts and delve into potential solutions.
+
+## Expert Panelists and Their Contributions
+
+* **Anita Graser**: Spatial Data Scientist at the Austrian Institute of Technology in Vienna.
+* **Edzer Pebesma**: Director of the Institute for Geoinformatics, University of Münster.
+* **Maarten Pronk**: GeoData Scientist at Deltares.
+* **Lorena Abad**: Researcher at Z_GIS – Department of Geoinformatics, University of Salzburg.
+* **Tomislav Hengl**: Data Scientist and Technical Director of OpenGeoHub Foundation.
+
+## Discussion Themes
+
+* The panel focused on the role of programming languages in addressing environmental challenges.
+* Experts shared their insights on leveraging data science and geoinformatics in climate research and policy-making.
+* The discussion highlighted the importance of interdisciplinary collaboration and open-source tools in advancing climate-related research.
+
+## Interactive Engagement
+
+* The session included an interactive Q&A, allowing attendees to ask questions and contribute their perspectives.
+* Online polls and real-time feedback mechanisms were employed to gauge audience opinions and foster a dynamic discussion.
+
+## Key Takeaways
+
+* Emphasis on the critical role of data science and spatial analysis in understanding and mitigating climate change.
+* Discussion of innovative applications of R, Python, and Julia in environmental research and sustainable development.
+* Recognition of the need for community-driven efforts and shared resources to maximize the impact of technology in environmental conservation.
+
+Personal impression:
+
+## Discussion Slides
+
+```{=html}
+<iframe src="https://docs.google.com/presentation/d/1DrlEt-OGDmUDMIso_X-usSTdmhwTAtZvtT8sYpi8G9g/edit#slide=id.p" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+
+## Discussion Slides
+
+[View the Discussion Forum Slides](https://docs.google.com/presentation/d/1DrlEt-OGDmUDMIso_X-usSTdmhwTAtZvtT8sYpi8G9g/edit#slide=id.p)
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/ZQWFQQ/)
+[Video](https://doi.org/10.5446/63361#t=00:00,02:06)
+
+

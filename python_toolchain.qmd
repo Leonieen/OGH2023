@@ -1,0 +1,63 @@
+---
+title: "Mapping Explanation: Python Toolchain for Spatial Interpretative Machine Learning"
+---
+
+**Date**: 2023-08-31, 09:00–10:30 and 2023-08-31, 11:00–12:30
+
+**Speaker**: Jarek Jasiewicz
+
+## Course Overview
+
+This course delved into interpretive machine learning methods applied to geospatial analysis. It focused on decomposing complex models to understand the criteria influencing outcomes in geospatial data. The comprehensive curriculum covered data preparation, model training, data transformation, analysis, and result interpretation, with a focus on spatial visualization. Tools like the SHAP library, and components of scikit-learn, geopandas, and matplotlib were featured.
+
+This course offered an in-depth exploration of interpretive machine learning (IML) methods, tailored specifically for geospatial analysis. It began with a comprehensive theoretical foundation of IML, explaining how these advanced techniques can decompose complex, non-linear machine learning models. The primary focus was on understanding the decision-making processes within these 'black box' models, particularly in the context of geospatial data. The course covered the entire Python toolchain necessary for this analysis, from initial data preparation to the final stages of spatial visualization.
+
+## Python Toolchain and Methods:
+
+* **Data Preparation**: Utilizing libraries like pandas and geopandas for manipulating and preparing spatial and non-spatial data.
+* **Model Training**: Employing scikit-learn for building sophisticated machine learning models. Techniques like regression, classification, and clustering were explored in the context of spatial data.
+* **Interpretive Analysis**: The course heavily focused on the SHAP (SHapley Additive exPlanations) library. SHAP values help in understanding the contribution of each feature to the prediction of a machine learning model, providing a deeper insight into the model's decision process.
+* **Data Transformation Process**: Demonstrated how to transform raw data into formats suitable for interpretive analysis, such as converting geographic data into shapely objects.
+* **Spatial Visualization**: Using matplotlib and other visualization tools for depicting complex spatial data patterns. The course emphasized the importance of effective visualization in conveying the nuances of IML findings.
+
+## Case Study - U.S. Presidential Election Analysis
+
+The practical aspect of the course centered around the 2016 U.S. presidential election results, exploring Clinton vs. Trump. It involved collecting and transforming explanatory variables into shapely numbers, analyzing their impact on election outcomes in each county. This method highlighted spatial patterns in the electoral process, utilizing shapely numbers for efficient clustering and pattern revelation.
+
+## Notebooks Overview
+
+### Mapping_Explanations.ipynb
+
+This notebook serves as a comprehensive guide to the interpretive machine learning toolchain in Python, using the U.S. presidential election data. It walks through the process of data preparation, variable transformation, and pattern analysis using SHAP values.
+
+```{=html}
+<iframe src="material/Mapping_Explanations.html" width="100%" height="400"></iframe>
+
+### Supplementary_PCA.ipynb
+
+This notebook focuses on Principal Component Analysis (PCA) in the context of interpretive machine learning. It demonstrates how PCA can be used to identify key patterns and clusters in the transformed geospatial data.
+
+```{=html}
+<iframe src="material/Supplementary_PCA.html" width="100%" height="400"></iframe>
+
+### Supplementary_Visual_Map_Series.ipynb
+This notebook offers a deep dive into spatial visualization techniques. It illustrates how to effectively use Python's mapping libraries to visualize complex spatial data and the patterns revealed through the interpretive machine learning process.
+
+```{=html}
+<iframe src="material/Supplementary_Visual_Map_Series.html" width="100%" height="400"></iframe>
+
+### Supplementary_Waterfalls.ipynb
+
+This notebook explores the waterfall plots method to understand the impact of various explanatory variables in the context of the U.S. presidential election results. It provides insights into the spatial dynamics of voting patterns.
+
+```{=html}
+<iframe src="material/Supplementary_Waterfalls.html" width="100%" height="400"></iframe>
+
+## Final Thoughts
+The course was an enlightening journey into the world of interpretive machine learning for geospatial data. It not only provided practical skills in Python toolchains but also offered a new perspective on analyzing and understanding complex spatial patterns.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/9NUVKY/)
+[material](http://igignas.myqnapcloud.com:8080/share.cgi?ssid=0fe773af500b4d118a0d7af0b003346b)
+[Video](https://doi.org/10.5446/63364#t=00:00,07:46)

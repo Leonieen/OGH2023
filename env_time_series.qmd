@@ -1,0 +1,38 @@
+---
+title: "Environmental Analysis Using Satellite Image Time Series"
+---
+
+**Date**: 2023-08-30, 13:30–15:00 and 2023-08-30, 15:30–17:00
+
+**Speaker**: Ewa Grabska-Szwagrzyk
+
+
+## Introduction to Satellite Image Time Series Analysis
+
+The workshop focused on the powerful tool of satellite imagery time series for detecting and analyzing environmental changes. With open-access data from missions like Landsat and Sentinel, the course delved into the methods of studying short- and long-term land cover changes.
+
+## Workshop Objectives and Coverage
+
+* **Data Preprocessing**: Emphasized the importance of preprocessing steps such as outlier removal and handling missing observations to ensure data quality.
+* **Time Series Modeling**: Participants learned various methods to effectively model time series data.
+* **Detection of Trends and Breaks**: The workshop provided techniques for identifying trends and discontinuities within the time series.
+* **Types of Changes Analyzed**: The analysis included a range of environmental changes, from urban growth to vegetation succession, encompassing both abrupt and gradual transitions.
+
+## Practical Skills and Tools
+
+* Participants were trained in using the R programming language for environmental analysis.
+* The workshop combined theoretical knowledge with practical application, ensuring a comprehensive learning experience.
+
+## Notebook
+
+```{=html}
+<iframe src="material/index_r.html" width="100%" height="400"></iframe>
+
+```{=html}
+<iframe src="sits.html" width="100%" height="400"></iframe>
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/7BDZSY/)
+[Github](https://github.com/egrabska/OGH2023)
+[Video](https://doi.org/10.5446/63362#t=00:00,05:04)

@@ -1,0 +1,49 @@
+---
+title: "Sentinel Satellite Data Analysis Course"
+---
+
+**Date**: 2023-08-31, 13:30–15:00 and 2023-09-01, 09:00-10:30
+
+**Speaker**: Lorena Abad
+
+**Understanding Sentinel Products**: A comprehensive look at the data access methods and processing techniques for Sentinel-1 and Sentinel-2 data.
+
+**Skill Enhancement**: Practical training on how to employ Python and R for satellite data analysis, with a focus on processing and interpreting the data from both radar and optical sensors.
+
+In this course I've gathered invaluable insights and practical skills that have significantly broadened my understanding of satellite data applications. The course provided a robust foundation for working with some of the most sophisticated tools in remote sensing within Python and R environments.
+
+# Navigating Sentinel-1 and Sentinel-2 Data
+
+Sentinel-1's radar technology provided me with the unique advantage of observing the Earth's surface in all weather conditions, both day and night. This reliable data stream is indispensable for continuous monitoring and has been made readily accessible through the user-friendly interface of the ASF Data Service. Its utility for various applications, from tracking urban expansion to environmental monitoring, has been demonstrated with profound clarity.
+
+Sentinel-2 complements this radar vision with its high-resolution optical imaging, offering a detailed view of the planet in vibrant colors. It extends the observational capacity to include the monitoring of vegetation, soil and water cover, inland waterways, and coastal areas. Its data is critical for tasks that require color differentiation and fine detail to discern subtle changes in land usage and plant health.
+
+Together, these satellites provide a comprehensive dataset that has deepened my understanding of earth observation and has equipped me with the analytical tools to perform a diverse range of assessments. This dual-satellite approach unlocks a new dimension of remote sensing, allowing for more informed and nuanced environmental research and decision-making.
+
+## Practical Sessions and Applied Learning
+
+The course was structured to provide us with direct experience in handling real data sets, exemplified by the Jupyter notebooks we worked on. 
+
+## Sentinel 1
+
+```{=html}
+<iframe src="material/sentinel1.html" width="100%" height="400"></iframe>
+
+## Sentinel 2
+
+```{=html}
+<iframe src="material/sentinel2.html" width="100%" height="400"></iframe>
+
+## Concluding Thoughts
+
+The course has equipped me with the confidence to take on independent satellite data analysis projects. It has been an enlightening experience to see how freely available satellite data can be transformed into actionable insights. The transition from theoretical understanding to practical application was seamless, thanks to the expertly crafted curriculum and the hands-on approach adopted by the course instructors.
+
+Moving forward, I am excited to apply the skills and to explore the various dimensions of Earth observation that such satellite data can unveil. I hope that my journey and the materials shared here serve as an inspiration and a resource for others interested in this field.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/HR3RWF/)
+[Github](https://github.com/loreabad6/ogh23)
+[Video](https://doi.org/10.5446/63365#t=00:00,02:04)
+
+

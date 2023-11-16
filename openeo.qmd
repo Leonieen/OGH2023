@@ -1,0 +1,43 @@
+---
+title: "Cloud-based Analysis of Earth Observation Data using openEO Platform, R, and Python"
+---
+
+**Date**: 2023-08-30, 09:00–10:30 and 2023-08-30, 11:00–12:30
+
+**Speaker**: Edzer Pebesma
+
+## Introduction to openEO
+
+This course offered a comprehensive look at the openEO platform, a pivotal tool for accessing and analyzing a vast array of free, open, and commercial Earth Observation (EO) data. The openEO platform stands out for its open API, which allows for cloud computing and unified, reproducible EO data access.
+
+## Key Features of openEO
+
+* **Unified API**: OpenEO provides a consistent and reproducible way to access and analyze EO data.
+* **Multiple Client Libraries**: It supports client libraries in R, Python, and Javascript, catering to a broad range of users.
+* **Interactive Development Tools**: The JupyterLab environment and the Web Editor provide user-friendly interfaces for developing processing workflows.
+* **User-Centric Design**: The platform is developed with a strong focus on user requirements and ease of use.
+
+## Practical Demonstrations and Use Cases
+
+* The course highlighted various completed use cases to illustrate the capabilities of the openEO platform.
+* Demonstrations included the development of processing workflows and how to efficiently use the platform's resources.
+
+## Future Evolution and Community Engagement
+* The future development of openEO will be closely tied to community requirements, with feature requests from users playing a crucial role.
+* The platform's evolution will focus on expanding data availability and enhancing processing capabilities.
+
+## Enhancing EO Data Analysis with FAIR Principles
+
+* The openEO platform exemplifies the ease of processing and analyzing large amounts of EO data, aligning with FAIR data principles (Findable, Accessible, Interoperable, and Reusable).
+* This alignment supports the broader EO community in turning data into meaningful information products.
+
+## Additional Resources
+
+* **EU Horizon Projects**: Open-Earth-Monitor Cyberinfrastructure (Grant agreement ID: 101059548)
+* **Material Distribution URL** : openEO Software
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/XCVDSS/)
+[Github](https://github.com/edzer/OGH23/tree/main)
+[Video](https://doi.org/10.5446/63124#t=00:00,06:11)

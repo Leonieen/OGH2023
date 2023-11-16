@@ -1,0 +1,40 @@
+---
+title: "Sharing Your Geospatial Knowledge in the Open"
+---
+
+**Date**: 2023-09-01, 11:00–12:30
+
+**Speaker**: Jakub Nowosad
+
+## Session Overview
+This course, led by Jakub Nowosad, was an engaging and mostly improvised session on creating an online book with geospatial content. It emphasized the significance of sharing geospatial knowledge openly and effectively using tools like Quarto.
+
+## Importance of Online Presence
+Jakub highlighted the crucial role of online visibility in the professional and academic world. He shared insights into how the online profiles of participants were considered during the summer school selection process, underscoring the value of having a strong digital footprint.
+
+## Personal Reflection
+As an attendee, this course resonated deeply with me. I've already been keen on sharing my projects online for several reasons:
+
+* It provides a straightforward way to showcase my work and studies to others.
+* Sharing links to my website and GitHub has been instrumental in job applications.
+* It serves as personal documentation of my projects, helping me organize and present my work in a coherent and attractive manner.
+
+## Integrating Quarto for Project Sharing
+Jakub's presentation focused on the use of Quarto, a tool for creating dynamic and interactive online content. He demonstrated how Quarto can be used to share projects, code, and papers in a way that is not only visually appealing but also promotes reproducibility.
+
+## Link to Personal Website and GitHub
+- Website: [My Personal Website](https://www.leonieengemann.de/)
+- GitHub: [My GitHub Profile](https://www.github.com/Leonieen)
+
+## Course Impact and Application
+This course inspired me to create this Quarto website, where summaries of other courses I've attended are shared. The session was a revelation in terms of digital content sharing, offering a new, interactive, and structured approach to presenting projects and research online.
+
+## Final Thoughts
+"Sharing Your Geospatial Knowledge in the Open" was an inspiring course that opened new avenues for me in terms of online content creation and sharing. It's a testament to how digital platforms can enhance the visibility and impact of our work in the geospatial domain.
+In general, I am very grateful to be able to meet Jakub at the OpenGeoHub summer school, for the fantastic organisation and new inputs.
+
+## Materials
+
+[Course overview](https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/QVQZQC/)
+[Github](https://github.com/Nowosad/ogh2023website)
+[Video](https://doi.org/10.5446/63363#t=00:00,01:26)
