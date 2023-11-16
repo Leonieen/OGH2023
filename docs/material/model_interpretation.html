@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>OGH2023 – model_interpretation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">OGH2023</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_lovelace.html" rel="" target="">
+ <span class="menu-text">R Spatial</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Sentinel.html" rel="" target="">
+ <span class="menu-text">Sentinel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../clustering_spatial_r.html" rel="" target="">
+ <span class="menu-text">Clustering</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../julia.html" rel="" target="">
+ <span class="menu-text">Julia</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../spatial_ml.html" rel="" target="">
+ <span class="menu-text">Spatial ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../openeo.html" rel="" target="">
+ <span class="menu-text">openEO</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../env_time_series.html" rel="" target="">
+ <span class="menu-text">Environmental time series</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../panel_discussion.html" rel="" target="">
+ <span class="menu-text">Panel discussion</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../xcube.html" rel="" target="">
+ <span class="menu-text">xcube</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../python_toolchain.html" rel="" target="">
+ <span class="menu-text">Python IML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../moving_pandas.html" rel="" target="">
+ <span class="menu-text">MovingPandas</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sharing.html" rel="" target="">
+ <span class="menu-text">Sharing knowledge</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#opengeohub-summer-school-2023-poznan" id="toc-opengeohub-summer-school-2023-poznan" class="nav-link active" data-scroll-target="#opengeohub-summer-school-2023-poznan">OpenGeoHub Summer School 2023, Poznan</a></li>
+  <li><a href="#alexander-brenning" id="toc-alexander-brenning" class="nav-link" data-scroll-target="#alexander-brenning">Alexander Brenning</a></li>
+  <li><a href="#university-of-jena-germany" id="toc-university-of-jena-germany" class="nav-link" data-scroll-target="#university-of-jena-germany">University of Jena, Germany</a></li>
+  <li><a href="#model-interpretation" id="toc-model-interpretation" class="nav-link" data-scroll-target="#model-interpretation">Model interpretation</a></li>
+  <li><a href="#case-study-mapping-crop-types-from-landsat-imagery" id="toc-case-study-mapping-crop-types-from-landsat-imagery" class="nav-link" data-scroll-target="#case-study-mapping-crop-types-from-landsat-imagery">Case study: Mapping crop types from Landsat imagery</a></li>
+  <li><a href="#fewer-decimal-places---works-better-for-instructor" id="toc-fewer-decimal-places---works-better-for-instructor" class="nav-link" data-scroll-target="#fewer-decimal-places---works-better-for-instructor">Fewer decimal places - works better for instructor:</a></li>
+  <li><a href="#load-the-data-set" id="toc-load-the-data-set" class="nav-link" data-scroll-target="#load-the-data-set">Load the data set:</a></li>
+  <li><a href="#add-this-many-random-noise-variable-to-the-data-set" id="toc-add-this-many-random-noise-variable-to-the-data-set" class="nav-link" data-scroll-target="#add-this-many-random-noise-variable-to-the-data-set">add this many random noise variable to the data set:</a></li>
+  <li><a href="#add-10-noise-variables-for-illustrative-purposes" id="toc-add-10-noise-variables-for-illustrative-purposes" class="nav-link" data-scroll-target="#add-10-noise-variables-for-illustrative-purposes">Add 10 noise variables for illustrative purposes:</a></li>
+  <li><a href="#use-a-larger-feature-set-than-previously" id="toc-use-a-larger-feature-set-than-previously" class="nav-link" data-scroll-target="#use-a-larger-feature-set-than-previously">Use a larger feature set than previously,</a></li>
+  <li><a href="#including-the-noise-variables" id="toc-including-the-noise-variables" class="nav-link" data-scroll-target="#including-the-noise-variables">including the ‘noise’ variables:</a></li>
+  <li><a href="#pick-one-of-fo1-fo2" id="toc-pick-one-of-fo1-fo2" class="nav-link" data-scroll-target="#pick-one-of-fo1-fo2">Pick one of fo1, fo2:</a>
+  <ul class="collapse">
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">Random Forest:</a></li>
+  <li><a href="#start-with-tools-from-the-randomforest-package" id="toc-start-with-tools-from-the-randomforest-package" class="nav-link" data-scroll-target="#start-with-tools-from-the-randomforest-package">start with tools from the randomForest package</a></li>
+  </ul></li>
+  <li><a href="#examples-of-a-pdp-using-function-from-randomforest-package" id="toc-examples-of-a-pdp-using-function-from-randomforest-package" class="nav-link" data-scroll-target="#examples-of-a-pdp-using-function-from-randomforest-package">Examples of a PDP using function from randomForest package:</a>
+  <ul class="collapse">
+  <li><a href="#random-forest-1" id="toc-random-forest-1" class="nav-link" data-scroll-target="#random-forest-1">Random Forest:</a></li>
+  <li><a href="#use-sperrorest-for-spatial-variable-importance" id="toc-use-sperrorest-for-spatial-variable-importance" class="nav-link" data-scroll-target="#use-sperrorest-for-spatial-variable-importance">Use sperrorest for (spatial) variable importance</a></li>
+  </ul></li>
+  <li><a href="#calculate-importance-for-these-variables" id="toc-calculate-importance-for-these-variables" class="nav-link" data-scroll-target="#calculate-importance-for-these-variables">Calculate importance for these variables:</a></li>
+  <li><a href="#perform-spatial-cross-validation-using-simplified-settings-to-test-the-code" id="toc-perform-spatial-cross-validation-using-simplified-settings-to-test-the-code" class="nav-link" data-scroll-target="#perform-spatial-cross-validation-using-simplified-settings-to-test-the-code">Perform spatial cross-validation; using simplified settings to test the code:</a></li>
+  <li><a href="#e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01" id="toc-e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01" class="nav-link" data-scroll-target="#e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01">E.g. mean decrease in accuracy when permuting ndvi01:</a></li>
+  <li><a href="#create-a-barplot---looks-better-with-greater-importances-at-the-top" id="toc-create-a-barplot---looks-better-with-greater-importances-at-the-top" class="nav-link" data-scroll-target="#create-a-barplot---looks-better-with-greater-importances-at-the-top">Create a barplot - looks better with greater importances at the top:</a>
+  <ul class="collapse">
+  <li><a href="#random-forest-2" id="toc-random-forest-2" class="nav-link" data-scroll-target="#random-forest-2">Random Forest:</a></li>
+  <li><a href="#use-pdp-package-for-partial-dependence-plots" id="toc-use-pdp-package-for-partial-dependence-plots" class="nav-link" data-scroll-target="#use-pdp-package-for-partial-dependence-plots">use pdp package for partial dependence plots</a></li>
+  </ul></li>
+  <li><a href="#lets-just-focus-on-these-three-predictors-for-now" id="toc-lets-just-focus-on-these-three-predictors-for-now" class="nav-link" data-scroll-target="#lets-just-focus-on-these-three-predictors-for-now">Let’s just focus on these three predictors for now:</a></li>
+  <li><a href="#only-looking-at-classification-of-crop1" id="toc-only-looking-at-classification-of-crop1" class="nav-link" data-scroll-target="#only-looking-at-classification-of-crop1">…only looking at classification of crop1!</a>
+  <ul class="collapse">
+  <li><a href="#random-forest-3" id="toc-random-forest-3" class="nav-link" data-scroll-target="#random-forest-3">Random Forest:</a></li>
+  <li><a href="#use-iml-package-for-partial-dependence-and-ale-plot" id="toc-use-iml-package-for-partial-dependence-and-ale-plot" class="nav-link" data-scroll-target="#use-iml-package-for-partial-dependence-and-ale-plot">use iml package for partial dependence and ALE plot</a></li>
+  </ul></li>
+  <li><a href="#use-the-smaller-feature-set-fo1" id="toc-use-the-smaller-feature-set-fo1" class="nav-link" data-scroll-target="#use-the-smaller-feature-set-fo1">use the smaller feature set, fo1:</a></li>
+  <li><a href="#permutation-variable-importance-on-the-training-set" id="toc-permutation-variable-importance-on-the-training-set" class="nav-link" data-scroll-target="#permutation-variable-importance-on-the-training-set">Permutation variable importance on the training set (!):</a></li>
+  <li><a href="#pvi-randomforest-style-for-comparison" id="toc-pvi-randomforest-style-for-comparison" class="nav-link" data-scroll-target="#pvi-randomforest-style-for-comparison">PVI, randomForest style (for comparison)</a></li>
+  <li><a href="#calculate-shap-feature-importance-from-shapley-values" id="toc-calculate-shap-feature-importance-from-shapley-values" class="nav-link" data-scroll-target="#calculate-shap-feature-importance-from-shapley-values">Calculate SHAP feature importance from Shapley values:</a></li>
+  <li><a href="#this-is-very-slow-and-not-parallelized" id="toc-this-is-very-slow-and-not-parallelized" class="nav-link" data-scroll-target="#this-is-very-slow-and-not-parallelized">This is very SLOW and not parallelized!</a></li>
+  <li><a href="#interaction-strength-using-iml-package" id="toc-interaction-strength-using-iml-package" class="nav-link" data-scroll-target="#interaction-strength-using-iml-package">Interaction strength using iml package:</a></li>
+  <li><a href="#ndvi01-ndvi03-and-ndvi04-showed-the-strongest-interactions-with-other" id="toc-ndvi01-ndvi03-and-ndvi04-showed-the-strongest-interactions-with-other" class="nav-link" data-scroll-target="#ndvi01-ndvi03-and-ndvi04-showed-the-strongest-interactions-with-other">ndvi01, ndvi03 and ndvi04 showed the strongest interactions with other</a></li>
+  <li><a href="#predictors-therefore-take-a-closer-look-at-how-they-interact" id="toc-predictors-therefore-take-a-closer-look-at-how-they-interact" class="nav-link" data-scroll-target="#predictors-therefore-take-a-closer-look-at-how-they-interact">predictors, therefore take a closer look at how they interact:</a></li>
+  <li><a href="#pdp-ale-plot-using-iml-package-use-method-argument" id="toc-pdp-ale-plot-using-iml-package-use-method-argument" class="nav-link" data-scroll-target="#pdp-ale-plot-using-iml-package-use-method-argument">PDP / ALE plot using iml package (use method argument!):</a>
+  <ul class="collapse">
+  <li><a href="#repeat-the-above-for-classification-trees" id="toc-repeat-the-above-for-classification-trees" class="nav-link" data-scroll-target="#repeat-the-above-for-classification-trees">Repeat the above for classification trees</a></li>
+  </ul></li>
+  <li><a href="#control-parameters-for-rpart" id="toc-control-parameters-for-rpart" class="nav-link" data-scroll-target="#control-parameters-for-rpart">Control parameters for rpart:</a></li>
+  <li><a href="#calculate-importance-for-these-variables-1" id="toc-calculate-importance-for-these-variables-1" class="nav-link" data-scroll-target="#calculate-importance-for-these-variables-1">Calculate importance for these variables:</a></li>
+  <li><a href="#perform-5-repeated-10-fold-spatial-cross-validation" id="toc-perform-5-repeated-10-fold-spatial-cross-validation" class="nav-link" data-scroll-target="#perform-5-repeated-10-fold-spatial-cross-validation">Perform 5-repeated 10-fold spatial cross-validation:</a></li>
+  <li><a href="#e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01-1" id="toc-e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01-1" class="nav-link" data-scroll-target="#e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01-1">E.g. mean decrease in accuracy when permuting ndvi01:</a>
+  <ul class="collapse">
+  <li><a href="#variable-importance-plot" id="toc-variable-importance-plot" class="nav-link" data-scroll-target="#variable-importance-plot">Variable importance plot:</a></li>
+  </ul></li>
+  <li><a href="#create-a-barplot---looks-better-with-greater-importances-at-the-top-1" id="toc-create-a-barplot---looks-better-with-greater-importances-at-the-top-1" class="nav-link" data-scroll-target="#create-a-barplot---looks-better-with-greater-importances-at-the-top-1">Create a barplot - looks better with greater importances at the top:</a>
+  <ul class="collapse">
+  <li><a href="#partial-dependence-plots-for-the-top-ranking-predictors" id="toc-partial-dependence-plots-for-the-top-ranking-predictors" class="nav-link" data-scroll-target="#partial-dependence-plots-for-the-top-ranking-predictors">Partial dependence plots for the top-ranking predictors:</a></li>
+  </ul></li>
+  <li><a href="#do-these-plots-accurately-depict-the-classifiers-structure-see-tree-plot" id="toc-do-these-plots-accurately-depict-the-classifiers-structure-see-tree-plot" class="nav-link" data-scroll-target="#do-these-plots-accurately-depict-the-classifiers-structure-see-tree-plot">Do these plots accurately depict the classifier’s structure? (see tree plot!)</a></li>
+  <li><a href="#what-is-missing" id="toc-what-is-missing" class="nav-link" data-scroll-target="#what-is-missing">What is missing?</a></li>
+  <li><a href="#hint-does-it-get-better-if-we-look-at-the-following-subsets" id="toc-hint-does-it-get-better-if-we-look-at-the-following-subsets" class="nav-link" data-scroll-target="#hint-does-it-get-better-if-we-look-at-the-following-subsets">Hint: Does it get better if we look at the following subsets:</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="section" class="level53">
+<p class="heading"></p>
+</section>
+<section id="opengeohub-summer-school-2023-poznan" class="level1">
+<h1>OpenGeoHub Summer School 2023, Poznan</h1>
+</section>
+<section id="alexander-brenning" class="level1">
+<h1>Alexander Brenning</h1>
+</section>
+<section id="university-of-jena-germany" class="level1">
+<h1>University of Jena, Germany</h1>
+<section id="section-1" class="level53">
+<p class="heading"></p>
+</section>
+</section>
+<section id="model-interpretation" class="level1">
+<h1>Model interpretation</h1>
+</section>
+<section id="case-study-mapping-crop-types-from-landsat-imagery" class="level1">
+<h1>Case study: Mapping crop types from Landsat imagery</h1>
+<section id="section-2" class="level53">
+<p class="heading"></p>
+</section>
+</section>
+<section id="fewer-decimal-places---works-better-for-instructor" class="level1">
+<h1>Fewer decimal places - works better for instructor:</h1>
+<p>options(digits=4)</p>
+<p>library(“sperrorest”) # PVI in spatial CV library(“randomForest”) # Random forest library(“rpart”) # CART library(“pdp”) # Partial dependence plots library(“ggplot2”) # Plotting</p>
+</section>
+<section id="load-the-data-set" class="level1">
+<h1>Load the data set:</h1>
+<p>d &lt;- readRDS(“Maipo_fields.rds”)</p>
+</section>
+<section id="add-this-many-random-noise-variable-to-the-data-set" class="level1">
+<h1>add this many random noise variable to the data set:</h1>
+<p>p_noise &lt;- 10</p>
+</section>
+<section id="add-10-noise-variables-for-illustrative-purposes" class="level1">
+<h1>Add 10 noise variables for illustrative purposes:</h1>
+<p>for(i in 0:p_noise){ d[paste(‘rdmvar’, i, sep = ““)] &lt;- rnorm(nrow(d)) }</p>
+<section id="choose-one-of-the-following-formula-objects" class="level4">
+<h4 class="anchored" data-anchor-id="choose-one-of-the-following-formula-objects">Choose one of the following formula objects:</h4>
+<p>fo1 &lt;- croptype ~ ndvi01 + ndvi02 + ndvi03 + ndvi04 + ndvi05 + ndvi06 + ndvi07 + ndvi08 + rdmvar1</p>
+</section>
+</section>
+<section id="use-a-larger-feature-set-than-previously" class="level1">
+<h1>Use a larger feature set than previously,</h1>
+</section>
+<section id="including-the-noise-variables" class="level1">
+<h1>including the ‘noise’ variables:</h1>
+<p>fo2 &lt;- as.formula( paste(“croptype ~”, paste( paste(“b”, outer(1:8,2:7,paste,sep = ““), sep=”“), collapse=”+” ), “+”, paste( paste(“ndvi0”, 1:8, sep = ““), collapse=”+“),”+“, paste( paste(”ndwi0”, 1:8, sep = ““), collapse=”+“),”+“, paste( paste(”rdmvar”, 0:p_noise, sep = ““), collapse=”+“) )) # What have we done: fo2</p>
+</section>
+<section id="pick-one-of-fo1-fo2" class="level1">
+<h1>Pick one of fo1, fo2:</h1>
+<p>fo &lt;- fo1</p>
+<section id="section-3" class="level60">
+<p class="heading"></p>
+</section>
+<section id="random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest">Random Forest:</h3>
+</section>
+<section id="start-with-tools-from-the-randomforest-package" class="level3">
+<h3 class="anchored" data-anchor-id="start-with-tools-from-the-randomforest-package">start with tools from the randomForest package</h3>
+<section id="section-4" class="level60">
+<p class="heading"></p>
+<p>fit &lt;- randomForest(fo, data = d) # try e.g.&nbsp;nodesize = 60</p>
+<p>randomForest::varImpPlot(fit) # type = 1 (mean decrease in accuracy) won’t work with croptype data set??</p>
+</section>
+</section>
+</section>
+<section id="examples-of-a-pdp-using-function-from-randomforest-package" class="level1">
+<h1>Examples of a PDP using function from randomForest package:</h1>
+<p>d2 &lt;- d d2$croptype &lt;- NULL par(mfrow = c(2,2)) randomForest::partialPlot(fit, x.var = “ndvi04”, pred.data = d2, which.class = “crop1”) randomForest::partialPlot(fit, x.var = “ndvi04”, pred.data = d2, which.class = “crop2”) randomForest::partialPlot(fit, x.var = “ndvi04”, pred.data = d2, which.class = “crop3”) randomForest::partialPlot(fit, x.var = “ndvi04”, pred.data = d2, which.class = “crop4”)</p>
+<p>rf_imp &lt;- randomForest::importance(fit) top3 &lt;- names(rf_imp[order(rf_imp[,“MeanDecreaseGini”], decreasing = TRUE),])[1:3] partialPlot(fit, x.var = top3[1], pred.data = d, which.class = “crop1”, xlab = top3[1]) partialPlot(fit, x.var = top3[2], pred.data = d, which.class = “crop1”, xlab = top3[2]) partialPlot(fit, x.var = top3[3], pred.data = d, which.class = “crop1”, xlab = top3[3])</p>
+<section id="section-5" class="level60">
+<p class="heading"></p>
+</section>
+<section id="random-forest-1" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-1">Random Forest:</h3>
+</section>
+<section id="use-sperrorest-for-spatial-variable-importance" class="level3">
+<h3 class="anchored" data-anchor-id="use-sperrorest-for-spatial-variable-importance">Use sperrorest for (spatial) variable importance</h3>
+<section id="section-6" class="level60">
+<p class="heading"></p>
+</section>
+</section>
+</section>
+<section id="calculate-importance-for-these-variables" class="level1">
+<h1>Calculate importance for these variables:</h1>
+<p>imp_vars &lt;- all.vars(fo)[-1] imp_vars</p>
+</section>
+<section id="perform-spatial-cross-validation-using-simplified-settings-to-test-the-code" class="level1">
+<h1>Perform spatial cross-validation; using simplified settings to test the code:</h1>
+<p>res &lt;- sperrorest(formula = fo, data = d, coords = c(“utmx”,“utmy”), model_fun = randomForest, model_args = list(ntree = 100), pred_args = list(type=“class”), smp_fun = partition_kmeans, smp_args = list(repetition=1:5, nfold=10), importance = TRUE, imp_permutations = 10, imp_variables = imp_vars) # Cross-validation estimate of error rate &amp; accuracy: imp &lt;- summary(res$importance) # … a data.frame with results…</p>
+</section>
+<section id="e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01" class="level1">
+<h1>E.g. mean decrease in accuracy when permuting ndvi01:</h1>
+<p>imp[“ndvi04”, “mean.accuracy”] # Its standard deviation over the repetitions: imp[“ndvi04”, “sd.accuracy”]</p>
+<p>imp &lt;- imp[order(imp$mean.accuracy, decreasing = TRUE),] imp[1:5, c(“mean.accuracy”, “sd.accuracy”)]</p>
+</section>
+<section id="create-a-barplot---looks-better-with-greater-importances-at-the-top" class="level1">
+<h1>Create a barplot - looks better with greater importances at the top:</h1>
+<p>imp &lt;- imp[order(imp<span class="math inline">\(mean.accuracy, decreasing = FALSE),] imp[1:5, c("mean.accuracy", "sd.accuracy")] par(mar = c(5,7,1,1)) # bottom, left, top, right margins barplot(imp\)</span>mean.accuracy, names.arg = rownames(imp), horiz = TRUE, las = 1, xlab = “Mean decrease in accuracy”)</p>
+<section id="section-7" class="level60">
+<p class="heading"></p>
+</section>
+<section id="random-forest-2" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-2">Random Forest:</h3>
+</section>
+<section id="use-pdp-package-for-partial-dependence-plots" class="level3">
+<h3 class="anchored" data-anchor-id="use-pdp-package-for-partial-dependence-plots">use pdp package for partial dependence plots</h3>
+<section id="section-8" class="level60">
+<p class="heading"></p>
+</section>
+</section>
+</section>
+<section id="lets-just-focus-on-these-three-predictors-for-now" class="level1">
+<h1>Let’s just focus on these three predictors for now:</h1>
+<p>top3 &lt;- rownames(imp[order(imp$mean.accuracy, decreasing = TRUE),])[1:3] # carefully read the ?partial help page! make sure you understand the settings! autoplot(pdp::partial(fit, pred.var = top3[1], which.class = “crop1”)) autoplot(pdp::partial(fit, pred.var = top3[2], which.class = “crop1”)) autoplot(pdp::partial(fit, pred.var = top3[3], which.class = “crop1”))</p>
+</section>
+<section id="only-looking-at-classification-of-crop1" class="level1">
+<h1>…only looking at classification of crop1!</h1>
+<section id="section-9" class="level60">
+<p class="heading"></p>
+</section>
+<section id="random-forest-3" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-3">Random Forest:</h3>
+</section>
+<section id="use-iml-package-for-partial-dependence-and-ale-plot" class="level3">
+<h3 class="anchored" data-anchor-id="use-iml-package-for-partial-dependence-and-ale-plot">use iml package for partial dependence and ALE plot</h3>
+<section id="section-10" class="level60">
+<p class="heading"></p>
+<p>library(“iml”) # ML model interpretation library(“ggplot2”) # Plotting library(“patchwork”) # Plotting</p>
+</section>
+</section>
+</section>
+<section id="use-the-smaller-feature-set-fo1" class="level1">
+<h1>use the smaller feature set, fo1:</h1>
+<p>fo &lt;- fo1</p>
+<p>fit &lt;- randomForest(fo, data = d, importance = TRUE)</p>
+<p>predvars &lt;- all.vars(fo)[-1] predictors &lt;- d[, predvars] response &lt;- d$croptype</p>
+<p>predictor &lt;- iml::Predictor$new(fit, data = predictors, y = response)</p>
+</section>
+<section id="permutation-variable-importance-on-the-training-set" class="level1">
+<h1>Permutation variable importance on the training set (!):</h1>
+<p>imp &lt;- iml::FeatureImp$new(predictor, loss = “ce”, n.repetitions = 100, compare = “difference”) plot(imp)</p>
+</section>
+<section id="pvi-randomforest-style-for-comparison" class="level1">
+<h1>PVI, randomForest style (for comparison)</h1>
+<p>par(mfrow = c(1,1)) varImpPlot(fit, type = 1)</p>
+</section>
+<section id="calculate-shap-feature-importance-from-shapley-values" class="level1">
+<h1>Calculate SHAP feature importance from Shapley values:</h1>
+</section>
+<section id="this-is-very-slow-and-not-parallelized" class="level1">
+<h1>This is very SLOW and not parallelized!</h1>
+<p>extract_shapleys &lt;- function(x) Shapley<span class="math inline">\(new(predictor,  x.interest = predictors[x,],  sample.size = 10 # use default of 100! -&gt; slower  )\)</span>results$phi shaps &lt;- sapply(1:nrow(d), extract_shapleys) shap &lt;- apply(abs(shaps), 1, mean) # average over all four classes: shap &lt;- tapply(shap, rep(predvars, 4), mean) barplot(shap[order(shap)], horiz = TRUE, las = 1, xlab = “SHAP feature importance”)</p>
+</section>
+<section id="interaction-strength-using-iml-package" class="level1">
+<h1>Interaction strength using iml package:</h1>
+<p>interac &lt;- iml::Interaction$new(predictor) plot(interac)</p>
+</section>
+<section id="ndvi01-ndvi03-and-ndvi04-showed-the-strongest-interactions-with-other" class="level1">
+<h1>ndvi01, ndvi03 and ndvi04 showed the strongest interactions with other</h1>
+</section>
+<section id="predictors-therefore-take-a-closer-look-at-how-they-interact" class="level1">
+<h1>predictors, therefore take a closer look at how they interact:</h1>
+<p>interac &lt;- Interaction$new(predictor, feature = “ndvi01”) plot(interac)</p>
+<p>interac &lt;- Interaction$new(predictor, feature = “ndvi03”) plot(interac)</p>
+<p>interac &lt;- Interaction$new(predictor, feature = “ndvi04”) plot(interac)</p>
+</section>
+<section id="pdp-ale-plot-using-iml-package-use-method-argument" class="level1">
+<h1>PDP / ALE plot using iml package (use method argument!):</h1>
+<p>effs &lt;- iml::FeatureEffects$new(predictor, method = “pdp”, features = top3) plot(effs)</p>
+<p>effs &lt;- iml::FeatureEffects$new(predictor, method = “ale”, features = top3) plot(effs)</p>
+<section id="section-11" class="level60">
+<p class="heading"></p>
+</section>
+<section id="repeat-the-above-for-classification-trees" class="level3">
+<h3 class="anchored" data-anchor-id="repeat-the-above-for-classification-trees">Repeat the above for classification trees</h3>
+<section id="section-12" class="level60">
+<p class="heading"></p>
+<p>fit &lt;- rpart(fo, data = d, control = rpart.control(cp=0, maxdepth=5)) par(xpd=TRUE, mfrow=c(1,1)) plot(fit) text(fit, use.n = TRUE) par(xpd = FALSE)</p>
+</section>
+</section>
+</section>
+<section id="control-parameters-for-rpart" class="level1">
+<h1>Control parameters for rpart:</h1>
+<p>ctrl &lt;- rpart.control(cp = 0, maxdepth = 5)</p>
+</section>
+<section id="calculate-importance-for-these-variables-1" class="level1">
+<h1>Calculate importance for these variables:</h1>
+<p>imp_vars &lt;- all.vars(fo)[-1] imp_vars</p>
+</section>
+<section id="perform-5-repeated-10-fold-spatial-cross-validation" class="level1">
+<h1>Perform 5-repeated 10-fold spatial cross-validation:</h1>
+<p>res &lt;- sperrorest(formula = fo, data = d, coords = c(“utmx”,“utmy”), model_fun = rpart, model_args = list(control=ctrl), pred_args = list(type=“class”), smp_fun = partition_kmeans, smp_args = list(repetition=1:5, nfold=10), importance = TRUE, imp_permutations = 10, imp_variables = imp_vars) # Cross-validation estimate of AUROC: imp &lt;- summary(res$importance) # … a data.frame with results…</p>
+</section>
+<section id="e.g.-mean-decrease-in-accuracy-when-permuting-ndvi01-1" class="level1">
+<h1>E.g. mean decrease in accuracy when permuting ndvi01:</h1>
+<p>imp[“ndvi05”, “mean.accuracy”] # Its standard deviation over the repetitions: imp[“ndvi05”, “sd.accuracy”]</p>
+<p>imp &lt;- imp[order(imp$mean.accuracy, decreasing = TRUE),] imp[1:5, c(“mean.accuracy”, “sd.accuracy”)]</p>
+<section id="variable-importance-plot" class="level3">
+<h3 class="anchored" data-anchor-id="variable-importance-plot">Variable importance plot:</h3>
+</section>
+</section>
+<section id="create-a-barplot---looks-better-with-greater-importances-at-the-top-1" class="level1">
+<h1>Create a barplot - looks better with greater importances at the top:</h1>
+<p>imp &lt;- imp[order(imp<span class="math inline">\(mean.accuracy, decreasing = FALSE),] par(mar = c(5,7,1,1)) # bottom, left, top, right margins barplot(imp\)</span>mean.accuracy, names.arg = rownames(imp), horiz = TRUE, las = 1, xlab = “Mean decrease in accuracy”)</p>
+<section id="partial-dependence-plots-for-the-top-ranking-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="partial-dependence-plots-for-the-top-ranking-predictors">Partial dependence plots for the top-ranking predictors:</h3>
+<p>top3 &lt;- rownames(imp[order(imp$mean.accuracy, decreasing = TRUE),])[1:3] # carefully read the ?partial help page! make sure you understand the settings! autoplot(partial(fit, pred.var = top3[1], which.class = “crop1”)) autoplot(partial(fit, pred.var = top3[2], which.class = “crop1”)) autoplot(partial(fit, pred.var = top3[3], which.class = “crop1”))</p>
+</section>
+</section>
+<section id="do-these-plots-accurately-depict-the-classifiers-structure-see-tree-plot" class="level1">
+<h1>Do these plots accurately depict the classifier’s structure? (see tree plot!)</h1>
+</section>
+<section id="what-is-missing" class="level1">
+<h1>What is missing?</h1>
+</section>
+<section id="hint-does-it-get-better-if-we-look-at-the-following-subsets" class="level1">
+<h1>Hint: Does it get better if we look at the following subsets:</h1>
+<p>autoplot(partial(fit, pred.var = “ndvi04”, which.class = “crop1”, train = d[d<span class="math inline">\(ndvi01 &lt; 0.4,])) autoplot(partial(fit, pred.var = "ndvi04", which.class = "crop1",  train = d[d\)</span>ndvi01 &gt;= 0.4,])) # …compared to: autoplot(partial(fit, pred.var = “ndvi04”, which.class = “crop1”))</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
