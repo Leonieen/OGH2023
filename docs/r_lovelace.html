@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - Tidy Geographic Data in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./r_lovelace.html" rel="" target="">
+    <a class="nav-link active" href="./r_lovelace.html" rel="" target="" aria-current="page">
  <span class="menu-text">R Spatial</span></a>
   </li>  
   <li class="nav-item">
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
@@ -149,14 +149,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
-  </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#course-insights" id="toc-course-insights" class="nav-link active" data-scroll-target="#course-insights">Course Insights</a></li>
+  <li><a href="#practical-part" id="toc-practical-part" class="nav-link" data-scroll-target="#practical-part">Practical Part</a></li>
+  <li><a href="#final-reflection" id="toc-final-reflection" class="nav-link" data-scroll-target="#final-reflection">Final Reflection</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   </ul>
 </nav>
@@ -166,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">Tidy Geographic Data in R</h1>
 </div>
 
 
@@ -181,48 +176,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
+<p><strong>Date</strong>: 2023-08-28, 11:00–12:30 and 2023-08-28, 13:30–15:00 <strong>Speaker</strong>: Robin Lovelace</p>
+<p><strong>Mastering ‘Tidy’ Geospatial Analysis in R</strong>: A detailed walkthrough of managing and visualizing geographic data with ‘tidy’ principles using the <code>sf</code> package in harmony with the tidyverse.</p>
+<p><strong>Leveraging R Packages for Geospatial Data</strong>: The course illuminated the advantages of using <code>sf</code> and tidyverse together, showcasing how this combination enhances data analysis efficiency and code readability.</p>
+<p><strong>Broadening the Data Analysis Toolkit</strong>: Exposure to various R packages and tools such as <code>geos</code> and <code>terra</code>, and discussions on alternative data analysis frameworks like <code>data.table</code>. Insight into how ‘tidy’ concepts are implemented across programming languages, with practical implications for project management and development environments.</p>
+<p>As someone traditionally versed in languages other than R, I found the “Tidy geographic data with sf, dplyr, ggplot2, geos and friends” course to be the perfect introduction to managing and visualizing geographical data using R’s tidy principles. This workshop was an enlightening expedition into the ‘tidy’ data concept and its application in geospatial analysis. The course unveiled the power of the sf package as a tool for efficient geographic data management within the tidyverse ecosystem, streamlining the way data scientists can read, write, manipulate, and plot geographic information.</p>
+<section id="course-insights" class="level2">
+<h2 class="anchored" data-anchor-id="course-insights">Course Insights</h2>
+<p>The workshop was structured around interactive learning sessions that taught us how to integrate packages such as sf with tidyverse tools for writing more readable and efficient code. We explored the geos package’s capabilities for geometric operations and discussed alternatives like the terra package for raster data processing. The discussion also spanned to project management tools, emphasizing the utility of IDEs like VS Code and RStudio, and the importance of version control systems in a collaborative environment.</p>
+</section>
+<section id="practical-part" class="level2">
+<h2 class="anchored" data-anchor-id="practical-part">Practical Part</h2>
+<p>For a hands-on look at the tidy Quarto document, which outlines the coding exercises and examples we worked through, see the embedded content below:</p>
+<iframe src="material/tidy.html" width="100%" height="400">
 </iframe>
 </section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
-</section>
-</section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
+<section id="final-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="final-reflection">Final Reflection</h2>
+<p>Embracing the ‘tidy’ philosophy has not only honed my R programming skills but also expanded my methodological approach to data analysis. I am now better equipped to tackle geospatial data challenges and look forward to integrating these techniques into my work, leveraging the power of R’s coherent and comprehensive suite of packages for geographic data analysis.</p>
+<p>Interested in how to deal with geospatial data in Python, feel free to visit the page from Michal Dorman about his course: <a href="https://geobgu.xyz/presentations/p_2023_ogh/">Working with Spatial Data in Python</a>.</p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/7JN3FV/">Course overview</a> <a href="https://github.com/robinlovelace/opengeohub2023">Github</a> <a href="https://doi.org/10.5446/63088#t=00:00,08:19">Video</a></p>
 
 
 </section>

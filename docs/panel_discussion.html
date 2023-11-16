@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - Combating Climate Crisis: Insights from R, Python, and Julia Communities</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Environmental time series</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./panel_discussion.html" rel="" target="">
+    <a class="nav-link active" href="./panel_discussion.html" rel="" target="" aria-current="page">
  <span class="menu-text">Panel discussion</span></a>
   </li>  
   <li class="nav-item">
@@ -149,14 +149,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
-  </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#overview-of-the-discussion-panel" id="toc-overview-of-the-discussion-panel" class="nav-link active" data-scroll-target="#overview-of-the-discussion-panel">Overview of the Discussion Panel</a></li>
+  <li><a href="#expert-panelists-and-their-contributions" id="toc-expert-panelists-and-their-contributions" class="nav-link" data-scroll-target="#expert-panelists-and-their-contributions">Expert Panelists and Their Contributions</a></li>
+  <li><a href="#discussion-themes" id="toc-discussion-themes" class="nav-link" data-scroll-target="#discussion-themes">Discussion Themes</a></li>
+  <li><a href="#interactive-engagement" id="toc-interactive-engagement" class="nav-link" data-scroll-target="#interactive-engagement">Interactive Engagement</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#discussion-slides" id="toc-discussion-slides" class="nav-link" data-scroll-target="#discussion-slides">Discussion Slides</a></li>
+  <li><a href="#discussion-slides-1" id="toc-discussion-slides-1" class="nav-link" data-scroll-target="#discussion-slides-1">Discussion Slides</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   </ul>
 </nav>
@@ -166,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">Combating Climate Crisis: Insights from R, Python, and Julia Communities</h1>
 </div>
 
 
@@ -181,48 +180,57 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
+<p><strong>Date</strong>: 2023-08-30, 17:15–18:45</p>
+<section id="overview-of-the-discussion-panel" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-the-discussion-panel">Overview of the Discussion Panel</h2>
+<p>The discussion panel brought together experts in the fields of spatial data science and geoinformatics to explore how the development communities of R, Python, and Julia can contribute to combating the climate crisis. This interactive session provided a platform for participants to engage with leading experts and delve into potential solutions.</p>
+</section>
+<section id="expert-panelists-and-their-contributions" class="level2">
+<h2 class="anchored" data-anchor-id="expert-panelists-and-their-contributions">Expert Panelists and Their Contributions</h2>
+<ul>
+<li><strong>Anita Graser</strong>: Spatial Data Scientist at the Austrian Institute of Technology in Vienna.</li>
+<li><strong>Edzer Pebesma</strong>: Director of the Institute for Geoinformatics, University of Münster.</li>
+<li><strong>Maarten Pronk</strong>: GeoData Scientist at Deltares.</li>
+<li><strong>Lorena Abad</strong>: Researcher at Z_GIS – Department of Geoinformatics, University of Salzburg.</li>
+<li><strong>Tomislav Hengl</strong>: Data Scientist and Technical Director of OpenGeoHub Foundation.</li>
+</ul>
+</section>
+<section id="discussion-themes" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-themes">Discussion Themes</h2>
+<ul>
+<li>The panel focused on the role of programming languages in addressing environmental challenges.</li>
+<li>Experts shared their insights on leveraging data science and geoinformatics in climate research and policy-making.</li>
+<li>The discussion highlighted the importance of interdisciplinary collaboration and open-source tools in advancing climate-related research.</li>
+</ul>
+</section>
+<section id="interactive-engagement" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-engagement">Interactive Engagement</h2>
+<ul>
+<li>The session included an interactive Q&amp;A, allowing attendees to ask questions and contribute their perspectives.</li>
+<li>Online polls and real-time feedback mechanisms were employed to gauge audience opinions and foster a dynamic discussion.</li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>Emphasis on the critical role of data science and spatial analysis in understanding and mitigating climate change.</li>
+<li>Discussion of innovative applications of R, Python, and Julia in environmental research and sustainable development.</li>
+<li>Recognition of the need for community-driven efforts and shared resources to maximize the impact of technology in environmental conservation.</li>
+</ul>
+<p>Personal impression:</p>
+</section>
+<section id="discussion-slides" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-slides">Discussion Slides</h2>
+<iframe src="https://docs.google.com/presentation/d/1DrlEt-OGDmUDMIso_X-usSTdmhwTAtZvtT8sYpi8G9g/edit#slide=id.p" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
 </iframe>
 </section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
-</section>
-</section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
+<section id="discussion-slides-1" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-slides-1">Discussion Slides</h2>
+<p><a href="https://docs.google.com/presentation/d/1DrlEt-OGDmUDMIso_X-usSTdmhwTAtZvtT8sYpi8G9g/edit#slide=id.p">View the Discussion Forum Slides</a></p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/ZQWFQQ/">Course overview</a> <a href="https://doi.org/10.5446/63361#t=00:00,02:06">Video</a></p>
 
 
 </section>

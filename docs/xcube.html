@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - xcube for Spatiotemporal Data Analysis and Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Panel discussion</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./xcube.html" rel="" target="">
+    <a class="nav-link active" href="./xcube.html" rel="" target="" aria-current="page">
  <span class="menu-text">xcube</span></a>
   </li>  
   <li class="nav-item">
@@ -149,14 +149,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
-  </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#introduction-to-xcube" id="toc-introduction-to-xcube" class="nav-link active" data-scroll-target="#introduction-to-xcube">Introduction to xcube</a></li>
+  <li><a href="#key-features-of-xcube" id="toc-key-features-of-xcube" class="nav-link" data-scroll-target="#key-features-of-xcube">Key Features of xcube</a></li>
+  <li><a href="#workshop-objectives-and-coverage" id="toc-workshop-objectives-and-coverage" class="nav-link" data-scroll-target="#workshop-objectives-and-coverage">Workshop Objectives and Coverage</a></li>
+  <li><a href="#embedding-workshop-materials" id="toc-embedding-workshop-materials" class="nav-link" data-scroll-target="#embedding-workshop-materials">Embedding Workshop Materials</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   </ul>
 </nav>
@@ -166,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">xcube for Spatiotemporal Data Analysis and Visualization</h1>
 </div>
 
 
@@ -181,48 +177,37 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
+<p><strong>Date</strong>: 2023-08-30, 15:30–17:00 <strong>Speaker</strong>: Alicja Balfanz</p>
+<section id="introduction-to-xcube" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-xcube">Introduction to xcube</h2>
+<p>This session provided an in-depth exploration of xcube, an open-source Python package based on xarray, designed for Earth observation (EO) data analysis. The focus was on transforming EO data into analysis-ready, self-contained data cubes suitable for cloud publishing.</p>
+<p>xcube is an innovative open-source software package developed primarily for processing and analyzing Earth Observation (EO) data. Based on the xarray package, xcube is designed to handle spatiotemporal data efficiently, making it a powerful tool in the field of remote sensing and geospatial data analysis.</p>
+</section>
+<section id="key-features-of-xcube" class="level2">
+<h2 class="anchored" data-anchor-id="key-features-of-xcube">Key Features of xcube</h2>
+<ul>
+<li><strong>Data Cube Technology</strong>: xcube transforms traditional EO data into multidimensional data cubes, making it easier to manipulate and analyze large datasets over space and time.</li>
+<li><strong>Analysis-Ready Data</strong>: The package focuses on providing data in an analysis-ready format. This means that users can spend less time on data preprocessing and more on actual analysis.</li>
+<li><strong>Cloud Compatibility</strong>: xcube’s data cubes can be published and stored in the cloud, facilitating easy access and scalable analysis.</li>
+<li><strong>Support for Various EO Data Sources</strong>: xcube is designed to work with data from various EO missions, including but not limited to Landsat and Sentinel. This makes it versatile for different types of environmental analysis.</li>
+</ul>
+</section>
+<section id="workshop-objectives-and-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="workshop-objectives-and-coverage">Workshop Objectives and Coverage</h2>
+<ul>
+<li><strong>xcube Ecosystem</strong>: Introduction to the ecosystem surrounding xcube, including its software components and functionalities.</li>
+<li><strong>Data Cube Generation</strong>: Learning how xcube converts various EO data sources into accessible data cubes.</li>
+<li><strong>Spatiotemporal Analysis and Visualization</strong>: Hands-on experience in using these data cubes for in-depth spatiotemporal data analysis and visualization.</li>
+</ul>
+</section>
+<section id="embedding-workshop-materials" class="level2">
+<h2 class="anchored" data-anchor-id="embedding-workshop-materials">Embedding Workshop Materials</h2>
+<iframe src="material/06_Spatial_Regridding_and_Masking_Fire_example.html" width="100%" height="400">
 </iframe>
-</section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
-</section>
-</section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/HFXFCB/">Course overview</a> <a href="https://github.com/deepesdl/deepesdl-doc/blob/main/notebooks/06_Spatial_Regridding_and_Masking.ipynb">Github</a> <a href="https://doi.org/10.5446/63359#t=00:00,00:57">Video</a></p>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - Cloud-based Analysis of Earth Observation Data using openEO Platform, R, and Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Spatial ML</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./openeo.html" rel="" target="">
+    <a class="nav-link active" href="./openeo.html" rel="" target="" aria-current="page">
  <span class="menu-text">openEO</span></a>
   </li>  
   <li class="nav-item">
@@ -149,14 +149,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
-  </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#introduction-to-openeo" id="toc-introduction-to-openeo" class="nav-link active" data-scroll-target="#introduction-to-openeo">Introduction to openEO</a></li>
+  <li><a href="#key-features-of-openeo" id="toc-key-features-of-openeo" class="nav-link" data-scroll-target="#key-features-of-openeo">Key Features of openEO</a></li>
+  <li><a href="#practical-demonstrations-and-use-cases" id="toc-practical-demonstrations-and-use-cases" class="nav-link" data-scroll-target="#practical-demonstrations-and-use-cases">Practical Demonstrations and Use Cases</a></li>
+  <li><a href="#future-evolution-and-community-engagement" id="toc-future-evolution-and-community-engagement" class="nav-link" data-scroll-target="#future-evolution-and-community-engagement">Future Evolution and Community Engagement</a></li>
+  <li><a href="#enhancing-eo-data-analysis-with-fair-principles" id="toc-enhancing-eo-data-analysis-with-fair-principles" class="nav-link" data-scroll-target="#enhancing-eo-data-analysis-with-fair-principles">Enhancing EO Data Analysis with FAIR Principles</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   </ul>
 </nav>
@@ -166,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">Cloud-based Analysis of Earth Observation Data using openEO Platform, R, and Python</h1>
 </div>
 
 
@@ -181,48 +179,51 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
-</iframe>
+<p><strong>Date</strong>: 2023-08-30, 09:00–10:30 <strong>Speaker</strong>: Edzer Pebesma</p>
+<section id="introduction-to-openeo" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-openeo">Introduction to openEO</h2>
+<p>This course offered a comprehensive look at the openEO platform, a pivotal tool for accessing and analyzing a vast array of free, open, and commercial Earth Observation (EO) data. The openEO platform stands out for its open API, which allows for cloud computing and unified, reproducible EO data access.</p>
 </section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
-</iframe>
+<section id="key-features-of-openeo" class="level2">
+<h2 class="anchored" data-anchor-id="key-features-of-openeo">Key Features of openEO</h2>
+<ul>
+<li><strong>Unified API</strong>: OpenEO provides a consistent and reproducible way to access and analyze EO data.</li>
+<li><strong>Multiple Client Libraries</strong>: It supports client libraries in R, Python, and Javascript, catering to a broad range of users.</li>
+<li><strong>Interactive Development Tools</strong>: The JupyterLab environment and the Web Editor provide user-friendly interfaces for developing processing workflows.</li>
+<li><strong>User-Centric Design</strong>: The platform is developed with a strong focus on user requirements and ease of use.</li>
+</ul>
 </section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
+<section id="practical-demonstrations-and-use-cases" class="level2">
+<h2 class="anchored" data-anchor-id="practical-demonstrations-and-use-cases">Practical Demonstrations and Use Cases</h2>
+<ul>
+<li>The course highlighted various completed use cases to illustrate the capabilities of the openEO platform.</li>
+<li>Demonstrations included the development of processing workflows and how to efficiently use the platform’s resources.</li>
+</ul>
 </section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
+<section id="future-evolution-and-community-engagement" class="level2">
+<h2 class="anchored" data-anchor-id="future-evolution-and-community-engagement">Future Evolution and Community Engagement</h2>
+<ul>
+<li>The future development of openEO will be closely tied to community requirements, with feature requests from users playing a crucial role.</li>
+<li>The platform’s evolution will focus on expanding data availability and enhancing processing capabilities.</li>
+</ul>
 </section>
+<section id="enhancing-eo-data-analysis-with-fair-principles" class="level2">
+<h2 class="anchored" data-anchor-id="enhancing-eo-data-analysis-with-fair-principles">Enhancing EO Data Analysis with FAIR Principles</h2>
+<ul>
+<li>The openEO platform exemplifies the ease of processing and analyzing large amounts of EO data, aligning with FAIR data principles (Findable, Accessible, Interoperable, and Reusable).</li>
+<li>This alignment supports the broader EO community in turning data into meaningful information products.</li>
+</ul>
 </section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
+<section id="additional-resources" class="level2">
+<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
+<ul>
+<li><strong>EU Horizon Projects</strong>: Open-Earth-Monitor Cyberinfrastructure (Grant agreement ID: 101059548)</li>
+<li><strong>Material Distribution URL</strong> : openEO Software</li>
+</ul>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/XCVDSS/">Course overview</a> <a href="https://github.com/edzer/OGH23/tree/main">Github</a> <a href="https://doi.org/10.5446/63124#t=00:00,06:11">Video</a></p>
 
 
 </section>

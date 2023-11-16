@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - Spatial ML model assessment and interpretation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,11 +98,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./spatial_ml.html" rel="" target="">
+    <a class="nav-link active" href="./spatial_ml.html" rel="" target="" aria-current="page">
  <span class="menu-text">Spatial ML</span></a>
   </li>  
   <li class="nav-item">
@@ -149,14 +149,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#diagnostic-tools-proposed" id="toc-diagnostic-tools-proposed" class="nav-link" data-scroll-target="#diagnostic-tools-proposed">Diagnostic Tools Proposed</a></li>
+  <li><a href="#case-studies-demonstrating-the-tools" id="toc-case-studies-demonstrating-the-tools" class="nav-link" data-scroll-target="#case-studies-demonstrating-the-tools">Case Studies Demonstrating the Tools</a></li>
+  <li><a href="#limitations-and-recommendations" id="toc-limitations-and-recommendations" class="nav-link" data-scroll-target="#limitations-and-recommendations">Limitations and Recommendations</a></li>
+  <li><a href="#practical-guidance" id="toc-practical-guidance" class="nav-link" data-scroll-target="#practical-guidance">Practical Guidance</a>
   <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
+  <li><a href="#here-are-some-insights-from-the-course" id="toc-here-are-some-insights-from-the-course" class="nav-link" data-scroll-target="#here-are-some-insights-from-the-course">Here are some insights from the course:</a></li>
   </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#concluding-insights" id="toc-concluding-insights" class="nav-link" data-scroll-target="#concluding-insights">Concluding Insights</a></li>
+  <li><a href="#final-thoughts-and-reflections" id="toc-final-thoughts-and-reflections" class="nav-link" data-scroll-target="#final-thoughts-and-reflections">Final Thoughts and Reflections</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   </ul>
 </nav>
@@ -166,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">Spatial ML model assessment and interpretation</h1>
 </div>
 
 
@@ -181,48 +183,76 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
+<p><strong>Date</strong>: 2023-08-31, 09:30–10:30 and 2023-08-31, 11:00-12:30 <strong>Speaker</strong>: Alexander Brenning</p>
+<p><strong>Understanding Spatial ML Model Assessment</strong>: The course shed light on the advanced techniques for interpreting machine-learning models with a focus on spatial analysis. It introduced the concept of spatial prediction error profiles (SPEPs) and spatial variable importance profiles (SVIPs) as tools to dissect and understand the predictive performance of ML models over different spatial extents.</p>
+<p><strong>Skill Enhancement</strong>: The training provided me with insights into: - The application of SPEPs and SVIPs for model-agnostic assessment. - The analysis of regionalization and classification tasks using various ML algorithms. - The comparison and contrast of model performance across different spatial scales and contexts.</p>
+<p>In this course I’ve gathered invaluable insights and practical skills that have significantly broadened my understanding of satellite data applications. The course provided a robust foundation for working with some of the most sophisticated tools in remote sensing within Python and R environments.</p>
+<p>The “Spatial ML model assessment and interpretation” course provided a comprehensive look at advanced methodologies for understanding machine learning (ML) models within a spatial context.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The presentation began with a focus on the challenges of interpreting complex ML models used for spatial prediction tasks. It emphasized the need for new diagnostic tools to better understand model behavior in terms of predictive skill and variable importance over space.</p>
+</section>
+<section id="diagnostic-tools-proposed" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostic-tools-proposed">Diagnostic Tools Proposed</h2>
+<ul>
+<li><strong>Spatial Prediction Error Profiles (SPEPs)</strong>: Introduced as a method to assess the spatial behavior of predictive models, focusing on the prediction distance to diagnose errors across different spatial locations.</li>
+<li><strong>Spatial Variable Importance Profiles (SVIPs)</strong>: Proposed for evaluating the contribution of each variable to the model’s predictive power, factoring in the spatial correlation and prediction horizon.</li>
+</ul>
+</section>
+<section id="case-studies-demonstrating-the-tools" class="level2">
+<h2 class="anchored" data-anchor-id="case-studies-demonstrating-the-tools">Case Studies Demonstrating the Tools</h2>
+<ol type="1">
+<li><strong>Landslide Susceptibility:</strong>
+<ul>
+<li>The objective was to identify areas prone to landslides using terrain attributes, land use, and other geographical features.</li>
+<li>The study highlighted how geostatistical methods, linear models, and ML algorithms like random forest differ in spatial prediction when assessed with SPEPs and SVIPs.</li>
+</ul></li>
+<li><strong>Remotely-Sensed Land Cover Classification:</strong>
+<ul>
+<li>Aimed at classifying crop types using Landsat data.</li>
+<li>Demonstrated the use of SPEPs and SVIPs in understanding the spatial generalizability of models and the limitations of non-spatial cross-validation techniques.</li>
+</ul></li>
+</ol>
+</section>
+<section id="limitations-and-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-and-recommendations">Limitations and Recommendations</h2>
+<ul>
+<li>The presentation reviewed the limitations of commonly used cross-validation techniques in spatial modeling and suggested modelers focus on the intended spatial prediction horizon rather than on the range of autocorrelation.</li>
+<li>It advocated for SPEPs and SVIPs as tools to enrich the spatial data science toolkit, potentially improving model interpretation, selection, and design.</li>
+</ul>
+</section>
+<section id="practical-guidance" class="level2">
+<h2 class="anchored" data-anchor-id="practical-guidance">Practical Guidance</h2>
+<ul>
+<li>Provided step-by-step instructions on how to implement SPEPs and SVIPs using R, with practical code examples and discussions on the interpretation of results.</li>
+<li>Emphasized the importance of matching the model assessment approach to the specific spatial prediction tasks and the potential biases that may arise from inappropriate assessment methods.</li>
+</ul>
+<section id="here-are-some-insights-from-the-course" class="level3">
+<h3 class="anchored" data-anchor-id="here-are-some-insights-from-the-course">Here are some insights from the course:</h3>
+<iframe src="material/model_assessment.html" width="100%" height="400">
+</iframe>
+<iframe src="material/model_interpretation.html" width="100%" height="400">
 </iframe>
 </section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
-</iframe>
 </section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
+<section id="concluding-insights" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-insights">Concluding Insights</h2>
+<ul>
+<li>The presentation underscored the pragmatic use of models based on their predictive performance and the role of cross-validation in reducing bias.</li>
+<li>It was suggested that spatial CV should account for spatial dependence, and modelers should use SPEPs to gain detailed insights into predictive behavior.</li>
+<li>A caution was raised against the over-optimistic assessment of models due to the inappropriate choice of validation data or misinterpretation of variable importance.</li>
+</ul>
 </section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
-</section>
-</section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
+<section id="final-thoughts-and-reflections" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts-and-reflections">Final Thoughts and Reflections</h2>
+<ul>
+<li>The course instilled the importance of critical assessment and interpretation of ML models in spatial applications.</li>
+<li>There was a strong emphasis on the practical application of concepts learned, with a focus on ensuring the accuracy and reliability of spatial predictions.</li>
+</ul>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/RFXDZW/">Course overview</a> <a href="https://github.com/alexanderbrenning/ogh23_ml">Github</a> <a href="https://doi.org/10.5446/63464#t=00:00,09:49">Video</a></p>
 
 
 </section>

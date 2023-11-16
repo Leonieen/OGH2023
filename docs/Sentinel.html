@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OGH2023 - Processing Geospatial Data with JuliaGeo</title>
+<title>OGH2023 - Sentinel Satellite Data Analysis Course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,7 +90,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">R Spatial</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Sentinel.html" rel="" target="">
+    <a class="nav-link active" href="./Sentinel.html" rel="" target="" aria-current="page">
  <span class="menu-text">Sentinel</span></a>
   </li>  
   <li class="nav-item">
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./julia.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./julia.html" rel="" target="">
  <span class="menu-text">Julia</span></a>
   </li>  
   <li class="nav-item">
@@ -149,15 +149,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-code" id="toc-julia-code" class="nav-link active" data-scroll-target="#julia-code">Julia Code</a>
+  <li><a href="#navigating-sentinel-1-and-sentinel-2-data" id="toc-navigating-sentinel-1-and-sentinel-2-data" class="nav-link active" data-scroll-target="#navigating-sentinel-1-and-sentinel-2-data">Navigating Sentinel-1 and Sentinel-2 Data</a>
   <ul class="collapse">
-  <li><a href="#introduction-to-julia-with-intro.ipynb" id="toc-introduction-to-julia-with-intro.ipynb" class="nav-link" data-scroll-target="#introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</a></li>
-  <li><a href="#exploring-juliageo-with-juliageo.ipynb" id="toc-exploring-juliageo-with-juliageo.ipynb" class="nav-link" data-scroll-target="#exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</a></li>
-  <li><a href="#package-management-with-package-manager.ipynb" id="toc-package-management-with-package-manager.ipynb" class="nav-link" data-scroll-target="#package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</a></li>
-  <li><a href="#parallel-computing-in-julia-with-parallel.ipynb" id="toc-parallel-computing-in-julia-with-parallel.ipynb" class="nav-link" data-scroll-target="#parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</a></li>
-  </ul></li>
-  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  <li><a href="#practical-sessions-and-applied-learning" id="toc-practical-sessions-and-applied-learning" class="nav-link" data-scroll-target="#practical-sessions-and-applied-learning">Practical Sessions and Applied Learning</a></li>
+  <li><a href="#sentinel-1" id="toc-sentinel-1" class="nav-link" data-scroll-target="#sentinel-1">Sentinel 1</a></li>
+  <li><a href="#sentinel-2" id="toc-sentinel-2" class="nav-link" data-scroll-target="#sentinel-2">Sentinel 2</a></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding Thoughts</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -166,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Processing Geospatial Data with JuliaGeo</h1>
+<h1 class="title">Sentinel Satellite Data Analysis Course</h1>
 </div>
 
 
@@ -181,50 +180,40 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Date</strong>: 2023-08-29, 09:00–10:30 and 2023-08-29, 11:00–12:30 <strong>Speaker</strong>: Maarten Pronk</p>
-<p><strong>Exploration of JuliaGeo</strong>: An introduction to the Julia programming language, focusing on the JuliaGeo ecosystem for geospatial data processing. The course offered a balanced view of Julia’s general-purpose programming prowess and specialized geospatial packages.</p>
-<p><strong>Innovation in Geospatial Analysis</strong>: The session encouraged hands-on learning with Julia’s tools for spatial data and opened discussions on the language’s application in geospatial sciences, including integration with other Julia organizations like JuliaClimate and EcoJulia.</p>
-<p><strong>Reflection on OSS and Teaching Style</strong>: An appreciation for Maarten Pronk’s engaging and insightful teaching, which highlighted the practical use of Julia in open-source software development and its potential for research in various geospatial domains.</p>
-<p>I was very excited that I had the opportunity to participate in a course focused on the JuliaGeo framework as part of my continuous exploration of geospatial data processing, because I have not worked with Julia before. This session was a deep dive into the Julia programming language—a language that combines the ease of use found in scripting languages with the high performance of compiled languages.</p>
-<p>The course was led by Maarten Pronk from Deltares, who is not only an early adopter of Julia but also an open-source software enthusiast contributing significantly to the geospatial research community. His teaching style was particularly inspiring, combining clarity with an interactive and engaging approach that made complex concepts accessible. Maarten’s open discussion sessions were invaluable, offering insights into the practical and innovative use of Julia in geoscience.</p>
-<p>JuliaGeo’s session was split into two parts: the first provided an introduction to Julia’s general programming capabilities, and the second focused on specific geospatial applications. The discussion highlighted the collaborative nature of JuliaGeo within the broader geospatial community and its integration with other organizations like JuliaGeometry, JuliaImages, and domain-specific groups such as JuliaClimate and EcoJulia.</p>
-<section id="julia-code" class="level2">
-<h2 class="anchored" data-anchor-id="julia-code">Julia Code</h2>
-<p>The following notebooks show, what code we worked on during the course</p>
-<section id="introduction-to-julia-with-intro.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-julia-with-intro.ipynb">Introduction to Julia with “intro.ipynb”</h3>
-<p>This notebook served as our first foray into Julia, presenting the language’s fundamentals and scripting capabilities. It was an eye-opener to Julia’s potential in simplifying complex coding tasks, setting the stage for more advanced geospatial analyses.</p>
-<iframe src="material/julia_intro.html" width="100%" height="400">
+<p><strong>Date</strong>: 2023-08-31, 13:30–15:00 and 2023-09-01, 09:00-10:30 <strong>Speaker</strong>: Lorena Abad</p>
+<p><strong>Understanding Sentinel Products</strong>: A comprehensive look at the data access methods and processing techniques for Sentinel-1 and Sentinel-2 data.</p>
+<p><strong>Skill Enhancement</strong>: Practical training on how to employ Python and R for satellite data analysis, with a focus on processing and interpreting the data from both radar and optical sensors.</p>
+<p>In this course I’ve gathered invaluable insights and practical skills that have significantly broadened my understanding of satellite data applications. The course provided a robust foundation for working with some of the most sophisticated tools in remote sensing within Python and R environments.</p>
+<section id="navigating-sentinel-1-and-sentinel-2-data" class="level1">
+<h1>Navigating Sentinel-1 and Sentinel-2 Data</h1>
+<p>Sentinel-1’s radar technology provided me with the unique advantage of observing the Earth’s surface in all weather conditions, both day and night. This reliable data stream is indispensable for continuous monitoring and has been made readily accessible through the user-friendly interface of the ASF Data Service. Its utility for various applications, from tracking urban expansion to environmental monitoring, has been demonstrated with profound clarity.</p>
+<p>Sentinel-2 complements this radar vision with its high-resolution optical imaging, offering a detailed view of the planet in vibrant colors. It extends the observational capacity to include the monitoring of vegetation, soil and water cover, inland waterways, and coastal areas. Its data is critical for tasks that require color differentiation and fine detail to discern subtle changes in land usage and plant health.</p>
+<p>Together, these satellites provide a comprehensive dataset that has deepened my understanding of earth observation and has equipped me with the analytical tools to perform a diverse range of assessments. This dual-satellite approach unlocks a new dimension of remote sensing, allowing for more informed and nuanced environmental research and decision-making.</p>
+<section id="practical-sessions-and-applied-learning" class="level2">
+<h2 class="anchored" data-anchor-id="practical-sessions-and-applied-learning">Practical Sessions and Applied Learning</h2>
+<p>The course was structured to provide us with direct experience in handling real data sets, exemplified by the Jupyter notebooks we worked on.</p>
+</section>
+<section id="sentinel-1" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-1">Sentinel 1</h2>
+<iframe src="material/sentinel1.html" width="100%" height="400">
 </iframe>
 </section>
-<section id="exploring-juliageo-with-juliageo.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="exploring-juliageo-with-juliageo.ipynb">Exploring JuliaGeo with “juliageo.ipynb”</h3>
-<p>Diving into the “juliageo.ipynb” notebook, we explored the JuliaGeo ecosystem, experiencing firsthand the power of Julia in processing geospatial data. The exercises we undertook underscored the breadth of functionality available to geospatial scientists within this framework.</p>
-<iframe src="material/juliageo.html" width="100%" height="400">
+<section id="sentinel-2" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-2">Sentinel 2</h2>
+<iframe src="material/sentinel2.html" width="100%" height="400">
 </iframe>
 </section>
-<section id="package-management-with-package-manager.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="package-management-with-package-manager.ipynb">Package Management with “package-manager.ipynb”</h3>
-<p>The “package-manager.ipynb” notebook provided a practical guide to Julia’s package ecosystem, emphasizing efficient package management and environment handling, which is crucial for reproducible research and collaborative projects.</p>
-<iframe src="material/julia_package-manager.html" width="100%" height="400">
-</iframe>
-</section>
-<section id="parallel-computing-in-julia-with-parallel.ipynb" class="level3">
-<h3 class="anchored" data-anchor-id="parallel-computing-in-julia-with-parallel.ipynb">Parallel Computing in Julia with “parallel.ipynb”</h3>
-<p>Lastly, “parallel.ipynb” introduced us to the parallel computing capabilities in Julia, demonstrating how to leverage multi-core processors and distributed computing to handle large datasets and computationally intensive tasks effectively.</p>
-<iframe src="material/julia_parallel.html" width="100%" height="400">
-</iframe>
-</section>
-</section>
-<section id="final-remarks" class="level2">
-<h2 class="anchored" data-anchor-id="final-remarks">Final Remarks</h2>
-<p>My admiration for Maarten Pronk’s teaching style cannot be overstated. His ability to articulate the strengths of Julia while fostering a collaborative learning environment made the course exceptionally rewarding. The engaging discussions and practical sessions provided a wealth of knowledge that I am eager to apply in my future geospatial projects.</p>
+<section id="concluding-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-thoughts">Concluding Thoughts</h2>
+<p>The course has equipped me with the confidence to take on independent satellite data analysis projects. It has been an enlightening experience to see how freely available satellite data can be transformed into actionable insights. The transition from theoretical understanding to practical application was seamless, thanks to the expertly crafted curriculum and the hands-on approach adopted by the course instructors.</p>
+<p>Moving forward, I am excited to apply the skills and to explore the various dimensions of Earth observation that such satellite data can unveil. I hope that my journey and the materials shared here serve as an inspiration and a resource for others interested in this field.</p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/N338TW/">Course overview</a> <a href="https://github.com/evetion/OGH2023">Github</a> <a href="https://doi.org/10.5446/63089#t=00:00,05:05">Video</a></p>
+<p><a href="https://pretalx.earthmonitor.org/opengeohub-summer-school-2023/talk/HR3RWF/">Course overview</a> <a href="https://github.com/loreabad6/ogh23">Github</a> <a href="https://doi.org/10.5446/63365#t=00:00,02:04">Video</a></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
